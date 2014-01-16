@@ -20,13 +20,24 @@ import classes.Utility;
 public class StudentsActivity extends MainActivity {
 	private ArrayList<Student> listItems;
 	private ListView listView;
-	
+	private String groupId;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (savedInstanceState == null) {
+		    Bundle extras = getIntent().getExtras();
+		    if(extras == null) {
+		        groupId= null;
+		    } else {
+		        groupId= extras.getString("id");
+		    }
+		} else {
+		    groupId= (String) savedInstanceState.getSerializable("id");
+		}
+		
 		setContentView(R.layout.list);
 		loadList();
-
+		
 		listView.setClickable(true);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -54,7 +65,7 @@ public class StudentsActivity extends MainActivity {
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 
-		listItems = mDbHelper.getAllStudents();
+		listItems = mDbHelper.getAllStudents(groupId);
 		ArrayAdapter<Student> adapter = new ArrayAdapter<Student>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);

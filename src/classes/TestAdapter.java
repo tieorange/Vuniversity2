@@ -3,7 +3,6 @@ package classes;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -49,7 +48,7 @@ public class TestAdapter {
 		mDbHelper.close();
 	}
 
-	//*********STUDENTS ********
+	// *********STUDENTS ********
 	public void RemoveStudentById(int id) {
 		mDb.delete("student", "id=?", new String[] { Integer.toString(id) });
 	}
@@ -74,7 +73,6 @@ public class TestAdapter {
 		}
 
 	}
-
 
 	public boolean AddStudent(String name, String surname) {
 		try {
@@ -106,7 +104,7 @@ public class TestAdapter {
 		}
 
 	}
-	
+
 	public ArrayList<Student> getAllStudents() {
 		try {
 			String sql = "SELECT * FROM student";
@@ -131,7 +129,33 @@ public class TestAdapter {
 		}
 
 	}
-	//******** GROUPS *********
+
+	public ArrayList<Student> getAllStudents(String id) {
+		try {
+			String sql = "SELECT * FROM student WHERE groupId = " + id;
+			ArrayList<Student> studentList = new ArrayList<Student>();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					do {
+						Student student = new Student();
+						student.setId(Integer.parseInt(mCur.getString(0)));
+						student.setName(mCur.getString(1));
+						student.setSurname(mCur.getString(2));
+						// Adding contact to list
+						studentList.add(student);
+					} while (mCur.moveToNext());
+				}
+			}
+			return studentList;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getStudentList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+
+	}
+
+	// ******** GROUPS *********
 	public ArrayList<Group> getAllGroups() {
 		try {
 			String sql = "SELECT * FROM \"group\"";
@@ -154,6 +178,7 @@ public class TestAdapter {
 			throw mSQLException;
 		}
 	}
+
 	public boolean AddGroup(String name) {
 		try {
 			ContentValues cv = new ContentValues();
@@ -168,10 +193,9 @@ public class TestAdapter {
 			return false;
 		}
 	}
+
 	public void RemoveGroupById(int id) {
 		mDb.delete("\"group\"", "id=?", new String[] { Integer.toString(id) });
 	}
-
-	
 
 }
