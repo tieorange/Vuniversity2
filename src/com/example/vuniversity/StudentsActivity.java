@@ -2,7 +2,6 @@ package com.example.vuniversity;
 
 import java.util.ArrayList;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -14,21 +13,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import classes.Group;
+import classes.Student;
 import classes.TestAdapter;
 import classes.Utility;
 
-public class GroupsActivity extends MainActivity {
-	private ArrayList<Group> listItems;
+public class StudentsActivity extends MainActivity {
+	private ArrayList<Student> listItems;
 	private ListView listView;
+	
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		loadList();
-	}
-
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
@@ -39,20 +32,20 @@ public class GroupsActivity extends MainActivity {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long arg) {
-				Group selectedItem = (Group) adapter.getAdapter().getItem(
+				Student selectedItem = (Student) adapter.getAdapter().getItem(
 						position);
-				Intent intent = new Intent(view.getContext(),
-						StudentsActivity.class);
-				intent.putExtra("id", Integer.toString(selectedItem.getId()));
-				startActivity(intent);
-
+				Utility.ShowMessageBox(view.getContext(),
+						selectedItem.getName() + " is clicked");
+				// Intent intent = new Intent(view.getContext().)
 			}
 		});
 	}
 
-	public void onClickAddNew(View view) {
-		Intent intent = new Intent(view.getContext(), AddGroupActivity.class);
-		startActivity(intent);
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		loadList();
 	}
 
 	public void loadList() {
@@ -61,14 +54,18 @@ public class GroupsActivity extends MainActivity {
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 
-		listItems = mDbHelper.getAllGroups();
-		ArrayAdapter<Group> adapter = new ArrayAdapter<Group>(this,
+		listItems = mDbHelper.getAllStudents();
+		ArrayAdapter<Student> adapter = new ArrayAdapter<Student>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
 		registerForContextMenu(listView);
 
-		Utility.ShowMessageBox(this, "Groups loaded");
+		Utility.ShowMessageBox(this, "Students loaded");
 		mDbHelper.close();
+	}
+
+	public void onClickAddNew(View view) {
+
 	}
 
 	@Override
@@ -83,7 +80,7 @@ public class GroupsActivity extends MainActivity {
 	}
 
 	private Adapter getListAdapter() {
-		return new ArrayAdapter<Group>(this,
+		return new ArrayAdapter<Student>(this,
 				android.R.layout.simple_list_item_1, listItems);
 	}
 
@@ -91,12 +88,12 @@ public class GroupsActivity extends MainActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
 				.getMenuInfo();
-		Group Item = (Group) getListAdapter().getItem(info.position);
+		Student Item = (Student) getListAdapter().getItem(info.position);
 
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
-		mDbHelper.RemoveGroupById(Item.getId());
+		mDbHelper.RemoveStudentById(Item.getId());
 		mDbHelper.close();
 		loadList();
 		return true;

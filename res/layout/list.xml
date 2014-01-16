@@ -5,18 +5,18 @@
     android:orientation="vertical" >
 
     <ListView
-        android:id="@+id/listViewGroups"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
     </ListView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonAddNew"
         android:layout_width="wrap_content"
         android:layout_height="50dip"
         android:layout_gravity="center_horizontal"
-        android:onClick="onClickAddNewGroup"
+        android:onClick="onClickAddNew"
         android:text="Add new" >
     </Button>
 

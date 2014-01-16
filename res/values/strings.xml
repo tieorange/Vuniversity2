@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="groups">Groups</string>
     <string name="addNewGroup">Add new group</string>
+    <string name="students">Students</string>
 
 </resources>
