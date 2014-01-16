@@ -1,4 +1,4 @@
-package com.example.vuniversity;
+package classes;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -2,6 +2,7 @@ package com.example.vuniversity;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -12,8 +13,18 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import classes.Group;
+import classes.TestAdapter;
+import classes.Utility;
 
 public class GroupsActivity extends MainActivity {
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		LoadGroupList();
+	}
+
 	private ArrayList<Group> listGroups;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +33,11 @@ public class GroupsActivity extends MainActivity {
 				LoadGroupList();
 	}
 	
+	public void onClickAddNewGroup(View view)
+	{
+		Intent intent = new Intent(view.getContext(), AddGroupActivity.class);
+		startActivity(intent);
+	}
 	public void LoadGroupList()
 	{
 		ListView listViewGroups = (ListView) findViewById(R.id.listViewGroups);
@@ -67,6 +83,7 @@ public class GroupsActivity extends MainActivity {
 		mDbHelper.open();
 		mDbHelper.RemoveGroupById(group.getId());
 		mDbHelper.close();
+		LoadGroupList();
 		return true;
 	}
 

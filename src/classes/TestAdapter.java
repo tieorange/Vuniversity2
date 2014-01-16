@@ -1,7 +1,8 @@
-package com.example.vuniversity;
+package classes;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -153,8 +154,22 @@ public class TestAdapter {
 			throw mSQLException;
 		}
 	}
+	public boolean AddGroup(String name) {
+		try {
+			ContentValues cv = new ContentValues();
+			cv.put("name", name);
+			mDb.insert("\"group\"", null, cv);
+
+			Log.d(name + " group  ADDED", "informationsaved");
+			return true;
+
+		} catch (Exception ex) {
+			Log.d("Add group error", ex.toString());
+			return false;
+		}
+	}
 	public void RemoveGroupById(int id) {
-		mDb.delete("group", "id=?", new String[] { Integer.toString(id) });
+		mDb.delete("\"group\"", "id=?", new String[] { Integer.toString(id) });
 	}
 
 	

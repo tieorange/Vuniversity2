@@ -1,4 +1,4 @@
-package com.example.vuniversity;
+package classes;
 
 public class Student {
 	private int Id;

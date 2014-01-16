@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="GroupsActivity" android:label="@string/groups"></activity>
+        <activity android:name="AddGroupActivity" android:label="@string/addNewGroup"></activity>
     </application>
 
 </manifest>
