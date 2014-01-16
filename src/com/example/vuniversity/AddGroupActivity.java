@@ -22,7 +22,7 @@ public class AddGroupActivity extends MainActivity {
 
 	}
 
-	public void onClickAddGroup(View view) {
+	public void onClickAdd(View view) {
 		if (editTextGroupName.getText().length() <= 0) {
 			Utility.ShowMessageBox(view.getContext(),
 					"Enter the name of the group please..");

@@ -4,6 +4,8 @@ public class Student {
 	private int Id;
 	private String Name;
 	private String Surname;
+	private String Eska;
+	private String GroupId;
 
 	public Student() {
 		Id = -1;
@@ -44,6 +46,22 @@ public class Student {
 
 	public void setSurname(String surname) {
 		Surname = surname;
+	}
+
+	public String getEska() {
+		return Eska;
+	}
+
+	public void setEska(String eska) {
+		Eska = eska;
+	}
+
+	public String getGroupId() {
+		return GroupId;
+	}
+
+	public void setGroupId(String groupId) {
+		GroupId = groupId;
 	}
 
 	@Override

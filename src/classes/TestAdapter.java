@@ -74,11 +74,14 @@ public class TestAdapter {
 
 	}
 
-	public boolean AddStudent(String name, String surname) {
+	public boolean AddStudent(String name, String surname, String eska, String groupId) {
 		try {
 			ContentValues cv = new ContentValues();
 			cv.put("name", name);
 			cv.put("surname", surname);
+			cv.put("Eska", eska);
+			cv.put("groupId", groupId);
+			
 			mDb.insert("student", null, cv);
 
 			Log.d(name + " " + surname + "  ADDED", "informationsaved");
@@ -96,6 +99,8 @@ public class TestAdapter {
 			ContentValues args = new ContentValues();
 			args.put("name", student.getName());
 			args.put("surname", student.getName());
+			args.put("Eska", student.getName());
+			args.put("groupId", student.getGroupId());
 			mDb.update("student", args, strFilter, null);
 			return true;
 		} catch (Exception ex) {
@@ -116,7 +121,9 @@ public class TestAdapter {
 						Student student = new Student();
 						student.setId(Integer.parseInt(mCur.getString(0)));
 						student.setName(mCur.getString(1));
-						student.setSurname(mCur.getString(2));
+						student.setSurname(mCur.getString(2));						
+						student.setEska(mCur.getString(3));						
+						student.setGroupId(mCur.getString(4));						
 						// Adding contact to list
 						studentList.add(student);
 					} while (mCur.moveToNext());
@@ -141,7 +148,9 @@ public class TestAdapter {
 						Student student = new Student();
 						student.setId(Integer.parseInt(mCur.getString(0)));
 						student.setName(mCur.getString(1));
-						student.setSurname(mCur.getString(2));
+						student.setSurname(mCur.getString(2));						
+						student.setEska(mCur.getString(3));						
+						student.setGroupId(mCur.getString(4));	
 						// Adding contact to list
 						studentList.add(student);
 					} while (mCur.moveToNext());
