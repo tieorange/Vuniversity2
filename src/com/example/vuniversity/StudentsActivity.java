@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
@@ -26,19 +27,21 @@ public class StudentsActivity extends MainActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState == null) {
-		    Bundle extras = getIntent().getExtras();
-		    if(extras == null) {
-		        groupId= null;
-		    } else {
-		        groupId= extras.getString("id");
-		    }
+			Bundle extras = getIntent().getExtras();
+			if (extras == null) {
+				groupId = null;
+			} else {
+				groupId = extras.getString("id");
+			}
 		} else {
-		    groupId= (String) savedInstanceState.getSerializable("id");
+			groupId = (String) savedInstanceState.getSerializable("id");
 		}
-		
+
 		setContentView(R.layout.list);
+		listView = (ListView) findViewById(R.id.listView);
+		registerForContextMenu(listView);
 		loadList();
-		
+
 		listView.setClickable(true);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -54,6 +57,18 @@ public class StudentsActivity extends MainActivity {
 	}
 
 	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+		String header = listItems.get(info.position).toString();
+		menu.setHeaderTitle(header);
+		if (v.getId() == R.id.listView) {
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.context_menu, menu);
+		}
+	}
+
+	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
@@ -61,7 +76,7 @@ public class StudentsActivity extends MainActivity {
 	}
 
 	public void loadList() {
-		listView = (ListView) findViewById(R.id.listView);
+
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
@@ -70,7 +85,6 @@ public class StudentsActivity extends MainActivity {
 		ArrayAdapter<Student> adapter = new ArrayAdapter<Student>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
-		registerForContextMenu(listView);
 
 		Utility.ShowMessageBox(this, "Students loaded");
 		mDbHelper.close();
@@ -83,17 +97,6 @@ public class StudentsActivity extends MainActivity {
 
 	}
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-		String header = listItems.get(info.position).toString();
-		menu.setHeaderTitle(header);
-		if (v.getId() == R.id.listView) {
-			menu.add(Menu.NONE, 1, 1, "Remove him from this list");
-		}
-	}
-
 	private Adapter getListAdapter() {
 		return new ArrayAdapter<Student>(this,
 				android.R.layout.simple_list_item_1, listItems);
@@ -103,14 +106,23 @@ public class StudentsActivity extends MainActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
 				.getMenuInfo();
-		Student Item = (Student) getListAdapter().getItem(info.position);
+		switch (item.getItemId()) {
+		case R.id.contextMenuDeleteItem: {
+			Student Item = (Student) getListAdapter().getItem(info.position);
 
-		TestAdapter mDbHelper = new TestAdapter(this);
-		mDbHelper.createDatabase();
-		mDbHelper.open();
-		mDbHelper.RemoveStudentById(Item.getId());
-		mDbHelper.close();
-		loadList();
+			TestAdapter mDbHelper = new TestAdapter(this);
+			mDbHelper.createDatabase();
+			mDbHelper.open();
+			mDbHelper.RemoveStudentById(Item.getId());
+			mDbHelper.close();
+			loadList();
+			break;
+		}
+		case R.id.contextMenuEditItem: {
+			// edit
+		}
+
+		}
 		return true;
 	}
 

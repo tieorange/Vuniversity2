@@ -62,7 +62,7 @@ public class GroupsActivity extends MainActivity {
 			// menu.add(Menu.NONE, 1, 1, "Remove him from this list");
 			MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.context_menu, menu);
-			//super.onCreateContextMenu(menu, v, menuInfo);
+			// super.onCreateContextMenu(menu, v, menuInfo);
 		}
 
 	}
@@ -95,12 +95,10 @@ public class GroupsActivity extends MainActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
 				.getMenuInfo();
-		int selectedItedId = item.getItemId();
-		
 		switch (item.getItemId()) {
 		case R.id.contextMenuDeleteItem: {
 			Group Item = (Group) getListAdapter().getItem(info.position);
-			
+
 			TestAdapter mDbHelper = new TestAdapter(this);
 			mDbHelper.createDatabase();
 			mDbHelper.open();
