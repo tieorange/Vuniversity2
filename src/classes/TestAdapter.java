@@ -63,6 +63,8 @@ public class TestAdapter {
 					student.setId(mCur.getString(0));
 					student.setName(mCur.getString(1));
 					student.setSurname(mCur.getString(2));
+					student.setEska(mCur.getString(3));
+					student.setGroupId(mCur.getString(4));
 				}
 			}
 			return student;
@@ -93,13 +95,13 @@ public class TestAdapter {
 		}
 	}
 
-	public boolean EditStudent(Student student, int id) {
+	public boolean EditStudent(Student student, String id) {
 		try {
 			String strFilter = "id=" + id;
 			ContentValues args = new ContentValues();
 			args.put("name", student.getName());
-			args.put("surname", student.getName());
-			args.put("Eska", student.getName());
+			args.put("surname", student.getSurname());
+			args.put("Eska", student.getEska());
 			args.put("groupId", student.getGroupId());
 			mDb.update("student", args, strFilter, null);
 			return true;
@@ -109,23 +111,6 @@ public class TestAdapter {
 		}
 
 	}
-
-	// public boolean EditStudent(Student student, int id) {
-	// try {
-	// String strFilter = "id=" + id;
-	// ContentValues args = new ContentValues();
-	// args.put("name", student.getName());
-	// args.put("surname", student.getName());
-	// args.put("Eska", student.getName());
-	// args.put("groupId", student.getGroupId());
-	// mDb.update("student", args, strFilter, null);
-	// return true;
-	// } catch (Exception ex) {
-	// Log.d("Edit student error", ex.toString());
-	// return false;
-	// }
-	//
-	// }
 
 	public ArrayList<Student> getAllStudents() {
 		try {

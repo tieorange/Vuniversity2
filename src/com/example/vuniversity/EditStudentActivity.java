@@ -37,40 +37,41 @@ public class EditStudentActivity extends MainActivity {
 		editTextStudentName = (EditText) findViewById(R.id.editTextStudentName);
 		editTextStudentSurname = (EditText) findViewById(R.id.editTextStudentSurname);
 		editTextStudentEska = (EditText) findViewById(R.id.editTextStudentEska);
-
+		buttonEdit.setText("Edit student");
+		
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 		editTextStudentName.setText((CharSequence) mDbHelper
-				.getStudentById(studentId));
+				.getStudentById(studentId).getName());
 
 	}
 
-	// public void onClickAdd(View view) {
-	// if (editTextStudentName.getText().length() <= 0
-	// || editTextStudentSurname.getText().length() <= 0
-	// || editTextStudentEska.getText().length() <= 0) {
-	// Utility.ShowMessageBox(view.getContext(),
-	// "Fill all the fields please..");
-	// return;
-	// }
-	//
-	// String name = editTextStudentName.getText().toString();
-	// String surname = editTextStudentSurname.getText().toString();
-	// String eska = editTextStudentEska.getText().toString();
-	//
-	// Student student = new Student(studentId, name,
-	// surname, eska, groupId);
-	//
-	// TestAdapter mDbHelper = new TestAdapter(this);
-	// mDbHelper.createDatabase();
-	// mDbHelper.open();
-	// if (mDbHelper.EditStudent(student, studentId)) {
-	// Utility.ShowMessageBox(this, "Student edited");
-	// finish();
-	// } else {
-	// Utility.ShowMessageBox(this, "OOPS try again!");
-	// }
-	//
-	// }
+	 public void onClickAdd(View view) {
+	 if (editTextStudentName.getText().length() <= 0
+	 || editTextStudentSurname.getText().length() <= 0
+	 || editTextStudentEska.getText().length() <= 0) {
+	 Utility.ShowMessageBox(view.getContext(),
+	 "Fill all the fields please..");
+	 return;
+	 }
+	
+	 String name = editTextStudentName.getText().toString();
+	 String surname = editTextStudentSurname.getText().toString();
+	 String eska = editTextStudentEska.getText().toString();
+	
+	 Student student = new Student(studentId, name,
+	 surname, eska, groupId);
+	
+	 TestAdapter mDbHelper = new TestAdapter(this);
+	 mDbHelper.createDatabase();
+	 mDbHelper.open();
+	 if (mDbHelper.EditStudent(student, studentId)) {
+	 Utility.ShowMessageBox(this, "Student edited");
+	 finish();
+	 } else {
+	 Utility.ShowMessageBox(this, "OOPS try again!");
+	 }
+	
+	 }
 }
