@@ -2,21 +2,21 @@ package classes;
 
 public class Student {
 
-	private int Id;
+	private String Id;
 	private String Name;
 	private String Surname;
 	private String Eska;
 	private String GroupId;
 
 	public Student() {
-		Id = -1;
+		Id = "-1";
 		Name = null;
 		Surname = null;
 		Eska = null;
 		GroupId = null;
 	}
 
-	public Student(int id, String name, String surname, String eska,
+	public Student(String id, String name, String surname, String eska,
 			String groupId) {
 		super();
 		Id = id;
@@ -26,7 +26,7 @@ public class Student {
 		GroupId = groupId;
 	}
 
-	public Student(int id, String name, String surname) {
+	public Student(String id, String name, String surname) {
 		super();
 		Id = id;
 		Name = name;
@@ -39,11 +39,11 @@ public class Student {
 		Surname = surname;
 	}
 
-	public int getId() {
+	public String getId() {
 		return Id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		Id = id;
 	}
 

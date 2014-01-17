@@ -1,7 +1,7 @@
 package classes;
 
 public class Group {
-	private int Id;
+	private String Id;
 	private String Name;
 	public Group() {
 		super();
@@ -10,15 +10,15 @@ public class Group {
 		super();
 		Name = name;
 	}
-	public Group(int id, String name) {
+	public Group(String id, String name) {
 		super();
 		Id = id;
 		Name = name;
 	}
-	public int getId() {
+	public String getId() {
 		return Id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		Id = id;
 	}
 	public String getName() {

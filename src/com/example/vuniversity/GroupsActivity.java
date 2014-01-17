@@ -45,7 +45,7 @@ public class GroupsActivity extends MainActivity {
 						position);
 				Intent intent = new Intent(view.getContext(),
 						StudentsActivity.class);
-				intent.putExtra("groupId", Integer.toString(selectedItem.getId()));
+				intent.putExtra("groupId", selectedItem.getId());
 				startActivity(intent);
 
 			}

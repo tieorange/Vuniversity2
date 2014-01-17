@@ -49,19 +49,18 @@ public class TestAdapter {
 	}
 
 	// *********STUDENTS ********
-	public void RemoveStudentById(int id) {
-		mDb.delete("student", "id=?", new String[] { Integer.toString(id) });
+	public void RemoveStudentById(String id) {
+		mDb.delete("student", "id=?", new String[] { (id) });
 	}
 
-	public Student getStudentById(int id) {
+	public Student getStudentById(String id) {
 		try {
-			String sql = "SELECT * FROM student WHERE id = "
-					+ Integer.toString(id);
+			String sql = "SELECT * FROM student WHERE id = " + id;
 			Student student = new Student();
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur != null) {
 				if (mCur.moveToFirst()) {
-					student.setId(Integer.parseInt(mCur.getString(0)));
+					student.setId(mCur.getString(0));
 					student.setName(mCur.getString(1));
 					student.setSurname(mCur.getString(2));
 				}
@@ -74,14 +73,15 @@ public class TestAdapter {
 
 	}
 
-	public boolean AddStudent(String name, String surname, String eska, String groupId) {
+	public boolean AddStudent(String name, String surname, String eska,
+			String groupId) {
 		try {
 			ContentValues cv = new ContentValues();
 			cv.put("name", name);
 			cv.put("surname", surname);
 			cv.put("Eska", eska);
 			cv.put("groupId", groupId);
-			
+
 			mDb.insert("student", null, cv);
 
 			Log.d(name + " " + surname + "  ADDED", "informationsaved");
@@ -110,22 +110,22 @@ public class TestAdapter {
 
 	}
 
-//	public boolean EditStudent(Student student, int id) {
-//		try {
-//			String strFilter = "id=" + id;
-//			ContentValues args = new ContentValues();
-//			args.put("name", student.getName());
-//			args.put("surname", student.getName());
-//			args.put("Eska", student.getName());
-//			args.put("groupId", student.getGroupId());
-//			mDb.update("student", args, strFilter, null);
-//			return true;
-//		} catch (Exception ex) {
-//			Log.d("Edit student error", ex.toString());
-//			return false;
-//		}
-//	
-//	}
+	// public boolean EditStudent(Student student, int id) {
+	// try {
+	// String strFilter = "id=" + id;
+	// ContentValues args = new ContentValues();
+	// args.put("name", student.getName());
+	// args.put("surname", student.getName());
+	// args.put("Eska", student.getName());
+	// args.put("groupId", student.getGroupId());
+	// mDb.update("student", args, strFilter, null);
+	// return true;
+	// } catch (Exception ex) {
+	// Log.d("Edit student error", ex.toString());
+	// return false;
+	// }
+	//
+	// }
 
 	public ArrayList<Student> getAllStudents() {
 		try {
@@ -136,11 +136,11 @@ public class TestAdapter {
 				if (mCur.moveToFirst()) {
 					do {
 						Student student = new Student();
-						student.setId(Integer.parseInt(mCur.getString(0)));
+						student.setId(mCur.getString(0));
 						student.setName(mCur.getString(1));
-						student.setSurname(mCur.getString(2));						
-						student.setEska(mCur.getString(3));						
-						student.setGroupId(mCur.getString(4));						
+						student.setSurname(mCur.getString(2));
+						student.setEska(mCur.getString(3));
+						student.setGroupId(mCur.getString(4));
 						// Adding contact to list
 						studentList.add(student);
 					} while (mCur.moveToNext());
@@ -163,11 +163,11 @@ public class TestAdapter {
 				if (mCur.moveToFirst()) {
 					do {
 						Student student = new Student();
-						student.setId(Integer.parseInt(mCur.getString(0)));
+						student.setId(mCur.getString(0));
 						student.setName(mCur.getString(1));
-						student.setSurname(mCur.getString(2));						
-						student.setEska(mCur.getString(3));						
-						student.setGroupId(mCur.getString(4));	
+						student.setSurname(mCur.getString(2));
+						student.setEska(mCur.getString(3));
+						student.setGroupId(mCur.getString(4));
 						// Adding contact to list
 						studentList.add(student);
 					} while (mCur.moveToNext());
@@ -191,7 +191,7 @@ public class TestAdapter {
 				if (mCur.moveToFirst()) {
 					do {
 						Group group = new Group();
-						group.setId(Integer.parseInt(mCur.getString(0)));
+						group.setId(mCur.getString(0));
 						group.setName(mCur.getString(1));
 						// Adding contact to list
 						groupList.add(group);
@@ -220,8 +220,8 @@ public class TestAdapter {
 		}
 	}
 
-	public void RemoveGroupById(int id) {
-		mDb.delete("\"group\"", "id=?", new String[] { Integer.toString(id) });
+	public void RemoveGroupById(String id) {
+		mDb.delete("\"group\"", "id=?", new String[] { (id) });
 	}
 
 }
