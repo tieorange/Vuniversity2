@@ -108,7 +108,10 @@ public class GroupsActivity extends MainActivity {
 			break;
 		}
 		case R.id.contextMenuEditItem: {
-			// edit
+			Intent intent = new Intent(this, EditGroupActivity.class);
+			intent.putExtra("groupId", Item.getId());
+			startActivity(intent);
+			break;
 		}
 
 		}

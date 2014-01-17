@@ -9,5 +9,6 @@
     <string name="students">Students</string>
     <string name="addNewStudent">Add new student</string>
     <string name="editStudent">Edit student</string>
+    <string name="edtiGroup">Edit group</string>
 
 </resources>

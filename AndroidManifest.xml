@@ -27,6 +27,7 @@
         <activity android:name="StudentsActivity" android:label="@string/students"></activity>
         <activity android:name="AddStudentActivity" android:label="@string/addNewStudent"></activity>
         <activity android:name="EditStudentActivity" android:label="@string/editStudent"></activity>
+        <activity android:name="EditGroupActivity" android:label="@string/edtiGroup" ></activity>
     </application>
 
 </manifest>

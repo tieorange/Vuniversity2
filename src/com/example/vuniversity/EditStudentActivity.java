@@ -1,7 +1,6 @@
 package com.example.vuniversity;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,16 +36,23 @@ public class EditStudentActivity extends MainActivity {
 		editTextStudentName = (EditText) findViewById(R.id.editTextStudentName);
 		editTextStudentSurname = (EditText) findViewById(R.id.editTextStudentSurname);
 		editTextStudentEska = (EditText) findViewById(R.id.editTextStudentEska);
-		buttonEdit.setText("Edit student");
+		buttonEdit.setText("Save student");
 		
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
+		
+		//set data to fields
 		editTextStudentName.setText((CharSequence) mDbHelper
 				.getStudentById(studentId).getName());
+		editTextStudentSurname.setText((CharSequence) mDbHelper
+				.getStudentById(studentId).getSurname());
+		editTextStudentEska.setText((CharSequence) mDbHelper
+				.getStudentById(studentId).getEska());
 
 	}
 
+	//finish editing
 	 public void onClickAdd(View view) {
 	 if (editTextStudentName.getText().length() <= 0
 	 || editTextStudentSurname.getText().length() <= 0
@@ -56,6 +62,7 @@ public class EditStudentActivity extends MainActivity {
 	 return;
 	 }
 	
+	 //get data from fields
 	 String name = editTextStudentName.getText().toString();
 	 String surname = editTextStudentSurname.getText().toString();
 	 String eska = editTextStudentEska.getText().toString();

@@ -204,6 +204,37 @@ public class TestAdapter {
 			return false;
 		}
 	}
+	public boolean EditGroup(Group group, String id) {
+		try {
+			String strFilter = "id=" + id;
+			ContentValues args = new ContentValues();
+			args.put("name", group.getName());			
+			mDb.update("\"group\"", args, strFilter, null);
+			return true;
+		} catch (Exception ex) {
+			Log.d("Edit group error", ex.toString());
+			return false;
+		}
+
+	}
+	public Group getGroupById(String id) {
+		try {
+			String sql = "SELECT * FROM \"group\" WHERE id = " + id;
+			Group group = new Group();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					group.setId(mCur.getString(0));
+					group.setName(mCur.getString(1));
+				}
+			}
+			return group;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getTestData >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+
+	}	
 
 	public void RemoveGroupById(String id) {
 		mDb.delete("\"group\"", "id=?", new String[] { (id) });
