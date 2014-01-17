@@ -166,6 +166,22 @@ public class TestAdapter {
 
 	}
 
+	public boolean isStudentExist(Student student) {
+		try {
+			String sql = "SELECT * FROM student WHERE Eska = "
+					+ student.getEska();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur.getCount() > 0)
+				return true;
+			else
+				return false;
+
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getStudentList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
 	// ******** GROUPS *********
 	public ArrayList<Group> getAllGroups() {
 		try {
@@ -204,11 +220,12 @@ public class TestAdapter {
 			return false;
 		}
 	}
+
 	public boolean EditGroup(Group group, String id) {
 		try {
 			String strFilter = "id=" + id;
 			ContentValues args = new ContentValues();
-			args.put("name", group.getName());			
+			args.put("name", group.getName());
 			mDb.update("\"group\"", args, strFilter, null);
 			return true;
 		} catch (Exception ex) {
@@ -217,6 +234,23 @@ public class TestAdapter {
 		}
 
 	}
+
+	public boolean isGroupExist(Group group) {
+		try {
+			String sql = "SELECT * FROM \"group\" WHERE name = "
+					+ group.getName();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur.getCount() > 0)
+				return true;
+			else
+				return false;
+
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getStudentList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
 	public Group getGroupById(String id) {
 		try {
 			String sql = "SELECT * FROM \"group\" WHERE id = " + id;
@@ -234,7 +268,7 @@ public class TestAdapter {
 			throw mSQLException;
 		}
 
-	}	
+	}
 
 	public void RemoveGroupById(String id) {
 		mDb.delete("\"group\"", "id=?", new String[] { (id) });
