@@ -110,6 +110,23 @@ public class TestAdapter {
 
 	}
 
+//	public boolean EditStudent(Student student, int id) {
+//		try {
+//			String strFilter = "id=" + id;
+//			ContentValues args = new ContentValues();
+//			args.put("name", student.getName());
+//			args.put("surname", student.getName());
+//			args.put("Eska", student.getName());
+//			args.put("groupId", student.getGroupId());
+//			mDb.update("student", args, strFilter, null);
+//			return true;
+//		} catch (Exception ex) {
+//			Log.d("Edit student error", ex.toString());
+//			return false;
+//		}
+//	
+//	}
+
 	public ArrayList<Student> getAllStudents() {
 		try {
 			String sql = "SELECT * FROM student";

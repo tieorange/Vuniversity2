@@ -45,7 +45,7 @@ public class GroupsActivity extends MainActivity {
 						position);
 				Intent intent = new Intent(view.getContext(),
 						StudentsActivity.class);
-				intent.putExtra("id", Integer.toString(selectedItem.getId()));
+				intent.putExtra("groupId", Integer.toString(selectedItem.getId()));
 				startActivity(intent);
 
 			}
@@ -95,9 +95,9 @@ public class GroupsActivity extends MainActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
 				.getMenuInfo();
+		Group Item = (Group) getListAdapter().getItem(info.position);
 		switch (item.getItemId()) {
 		case R.id.contextMenuDeleteItem: {
-			Group Item = (Group) getListAdapter().getItem(info.position);
 
 			TestAdapter mDbHelper = new TestAdapter(this);
 			mDbHelper.createDatabase();
