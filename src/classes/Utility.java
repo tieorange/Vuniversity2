@@ -6,7 +6,10 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 public class Utility {
-
+	
+	public static final int MENU_DELETE_ITEM = 1;
+	public static final int MENU_EDIT_ITEM = 2;
+	
  	public static String GetColumnValue(Cursor cur, String ColumnName) {
 		try {
 			return cur.getString(cur.getColumnIndex(ColumnName));
