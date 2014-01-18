@@ -109,7 +109,6 @@ public class TestAdapter {
 			Log.d("Edit error", ex.toString());
 			return false;
 		}
-
 	}
 
 	public ArrayList<Student> getAllStudents() {
@@ -349,8 +348,7 @@ public class TestAdapter {
 		}
 	}
 
-	
-	//***** TEACHERS &*****
+	// ***** TEACHERS &*****
 	public ArrayList<Teacher> getAllTeachers() {
 		try {
 			String sql = "SELECT * FROM teacher";
@@ -377,7 +375,40 @@ public class TestAdapter {
 
 	public void RemoveTeacherById(String id) {
 		mDb.delete("teacher", "id=?", new String[] { (id) });
-		
+
+	}
+
+	public Teacher getTeacherById(String id) {
+		try {
+			String sql = "SELECT * FROM teacher WHERE id = " + id;
+			Teacher teacher = new Teacher();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					teacher.setId(mCur.getString(0));
+					teacher.setName(mCur.getString(1));
+					teacher.setSurname(mCur.getString(2));
+				}
+			}
+			return teacher;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getData >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
+	public boolean EditTeacher(Teacher item, String id) {
+		try {
+			String strFilter = "id=" + id;
+			ContentValues args = new ContentValues();
+			args.put("name", item.getName());
+			args.put("surname", item.getSurname());
+			mDb.update("teacher", args, strFilter, null);
+			return true;
+		} catch (Exception ex) {
+			Log.d("Edit error", ex.toString());
+			return false;
+		}
 	}
 
 }

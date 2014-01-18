@@ -2,6 +2,7 @@ package com.example.vuniversity;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -64,10 +65,9 @@ public class TeachersActivity extends MainActivity {
 			break;
 		}
 		case R.id.contextMenuEditItem: {
-//			Intent intent = new Intent(this, EditStudentActivity.class);
-//			intent.putExtra("studentId", Item.getId());
-//			intent.putExtra("groupId", Item.getGroupId());
-//			startActivity(intent);
+			Intent intent = new Intent(this, EditTeacherActivity.class);
+			intent.putExtra("teacherId", Item.getId());
+			startActivity(intent);
 			break;
 		}
 

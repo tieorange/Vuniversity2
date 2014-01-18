@@ -14,5 +14,6 @@
     <string name="addNewSubject">Add new subject</string>
     <string name="edtiSubject">Edit subject</string>
     <string name="teachers">Teachers</string>
+    <string name="editTeachers">Edit teacher</string>
 
 </resources>
