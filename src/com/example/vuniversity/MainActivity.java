@@ -25,6 +25,9 @@ public class MainActivity extends Activity {
 		case R.id.buttonSubjects:
 			myIntent = new Intent(view.getContext(), SubjectsActivity.class);
 			break;
+		case R.id.buttonTeachers:
+			myIntent = new Intent(view.getContext(), TeachersActivity.class);
+			break;
 		}
 		startActivity(myIntent);
 

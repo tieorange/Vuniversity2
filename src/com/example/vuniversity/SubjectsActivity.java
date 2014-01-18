@@ -41,8 +41,8 @@ public class SubjectsActivity extends MainActivity {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long arg) {
-				Subject selectedItem = (Subject) adapter.getAdapter().getItem(
-						position);
+//				Subject selectedItem = (Subject) adapter.getAdapter().getItem(
+//						position);
 				// Intent intent = new Intent(view.getContext(),
 				// SubjectDetailsActivity.class);
 				// intent.putExtra("subjectId", selectedItem.getId());
@@ -106,10 +106,10 @@ public class SubjectsActivity extends MainActivity {
 			break;
 		}
 		case R.id.contextMenuEditItem: {
-			 Intent intent = new Intent(this, EditSubjectActivity.class);
-			 intent.putExtra("subjectId", Item.getId());
-			 startActivity(intent);
-			 break;
+			Intent intent = new Intent(this, EditSubjectActivity.class);
+			intent.putExtra("subjectId", Item.getId());
+			startActivity(intent);
+			break;
 		}
 
 		}

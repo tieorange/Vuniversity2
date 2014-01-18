@@ -48,6 +48,6 @@ public class Teacher {
 
 	@Override
 	public String toString() {
-		return getName() + getSurname();
+		return getName()+ " " + getSurname();
 	}
 }
