@@ -34,9 +34,12 @@ public class MainActivity extends Activity {
 		switch (view.getId()) {
 		case R.id.buttonGroups:
 			myIntent = new Intent(view.getContext(), GroupsActivity.class);
-			startActivity(myIntent);
+			break;
+		case R.id.buttonSubjects:
+			myIntent = new Intent(view.getContext(), SubjectsActivity.class);
 			break;
 		}
+		startActivity(myIntent);
 
 	}
 

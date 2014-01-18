@@ -27,11 +27,11 @@
         android:text="Teachers" />
 
     <Button
-        android:id="@+id/buttonLectures"
+        android:id="@+id/buttonSubjects"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="onClickButtons"
-        android:text="Lectures" />
+        android:text="Subjects" />
 
 </LinearLayout>

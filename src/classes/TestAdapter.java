@@ -69,7 +69,7 @@ public class TestAdapter {
 			}
 			return student;
 		} catch (SQLException mSQLException) {
-			Log.e(TAG, "getTestData >>" + mSQLException.toString());
+			Log.e(TAG, "getData >>" + mSQLException.toString());
 			throw mSQLException;
 		}
 
@@ -90,7 +90,7 @@ public class TestAdapter {
 			return true;
 
 		} catch (Exception ex) {
-			Log.d("Add student error", ex.toString());
+			Log.d("Add error", ex.toString());
 			return false;
 		}
 	}
@@ -106,7 +106,7 @@ public class TestAdapter {
 			mDb.update("student", args, strFilter, null);
 			return true;
 		} catch (Exception ex) {
-			Log.d("Edit student error", ex.toString());
+			Log.d("Edit error", ex.toString());
 			return false;
 		}
 
@@ -133,7 +133,7 @@ public class TestAdapter {
 			}
 			return studentList;
 		} catch (SQLException mSQLException) {
-			Log.e(TAG, "getStudentList >>" + mSQLException.toString());
+			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
 		}
 
@@ -160,7 +160,7 @@ public class TestAdapter {
 			}
 			return studentList;
 		} catch (SQLException mSQLException) {
-			Log.e(TAG, "getStudentList >>" + mSQLException.toString());
+			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
 		}
 
@@ -177,7 +177,7 @@ public class TestAdapter {
 				return false;
 
 		} catch (SQLException mSQLException) {
-			Log.e(TAG, "getStudentList >>" + mSQLException.toString());
+			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
 		}
 	}
@@ -201,7 +201,7 @@ public class TestAdapter {
 			}
 			return groupList;
 		} catch (SQLException mSQLException) {
-			Log.e(TAG, "getGroupList >>" + mSQLException.toString());
+			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
 		}
 	}
@@ -212,11 +212,11 @@ public class TestAdapter {
 			cv.put("name", name);
 			mDb.insert("\"group\"", null, cv);
 
-			Log.d(name + " group  ADDED", "informationsaved");
+			Log.d(name + " ADDED", "informationsaved");
 			return true;
 
 		} catch (Exception ex) {
-			Log.d("Add group error", ex.toString());
+			Log.d("Add error", ex.toString());
 			return false;
 		}
 	}
@@ -229,7 +229,7 @@ public class TestAdapter {
 			mDb.update("\"group\"", args, strFilter, null);
 			return true;
 		} catch (Exception ex) {
-			Log.d("Edit group error", ex.toString());
+			Log.d("Edit error", ex.toString());
 			return false;
 		}
 
@@ -246,7 +246,7 @@ public class TestAdapter {
 				return false;
 
 		} catch (SQLException mSQLException) {
-			Log.e(TAG, "getStudentList >>" + mSQLException.toString());
+			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
 		}
 	}
@@ -264,7 +264,7 @@ public class TestAdapter {
 			}
 			return group;
 		} catch (SQLException mSQLException) {
-			Log.e(TAG, "getTestData >>" + mSQLException.toString());
+			Log.e(TAG, "getData >>" + mSQLException.toString());
 			throw mSQLException;
 		}
 
@@ -272,6 +272,51 @@ public class TestAdapter {
 
 	public void RemoveGroupById(String id) {
 		mDb.delete("\"group\"", "id=?", new String[] { (id) });
+	}
+
+	// ****** SUBJECT *****
+	public ArrayList<Subject> getAllSubjects() {
+		try {
+			String sql = "SELECT * FROM subject";
+			ArrayList<Subject> subjectList = new ArrayList<Subject>();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					do {
+						Subject subject = new Subject();
+						subject.setId(mCur.getString(0));
+						subject.setName(mCur.getString(1));
+
+						// Adding contact to list
+						subjectList.add(subject);
+					} while (mCur.moveToNext());
+				}
+			}
+			return subjectList;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
+	public void RemoveSubjectById(String id) {
+		mDb.delete("subject", "id=?", new String[] { (id) });
+
+	}
+
+	public boolean AddSubject(String name) {
+		try {
+			ContentValues cv = new ContentValues();
+			cv.put("name", name);
+			mDb.insert("subject", null, cv);
+
+			Log.d(name + " ADDED", "informationsaved");
+			return true;
+
+		} catch (Exception ex) {
+			Log.d("Add group error", ex.toString());
+			return false;
+		}
 	}
 
 }

@@ -8,10 +8,10 @@ import classes.Group;
 import classes.TestAdapter;
 import classes.Utility;
 
-public class EditGroupActivity extends MainActivity {
+public class EditSubjectActivity extends MainActivity {
 	Button buttonEdit;
 	EditText editTextName;
-	String groupId;
+	String subjectId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +20,12 @@ public class EditGroupActivity extends MainActivity {
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
-				groupId = null;
+				subjectId = null;
 			} else {
-				groupId = extras.getString("groupId");
+				subjectId = extras.getString("subjectId");
 			}
 		} else {
-			groupId = (String) savedInstanceState.getSerializable("groupId");
+			subjectId = (String) savedInstanceState.getSerializable("subjectId");
 		}
 
 		buttonEdit = (Button) findViewById(R.id.buttonSubmitNewGroup);
@@ -38,7 +38,7 @@ public class EditGroupActivity extends MainActivity {
 		mDbHelper.open();
 
 		// set data to fields
-		editTextName.setText((CharSequence) mDbHelper.getGroupById(groupId)
+		editTextName.setText((CharSequence) mDbHelper.getGroupById(subjectId)
 				.getName());
 
 	}
@@ -53,12 +53,12 @@ public class EditGroupActivity extends MainActivity {
 		// get data from fields
 		String name = editTextName.getText().toString();
 
-		Group group = new Group(groupId, name);
+		Group group = new Group(subjectId, name);
 
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
-		if (mDbHelper.EditGroup(group, groupId)) {
+		if (mDbHelper.EditGroup(group, subjectId)) {
 			Utility.ShowMessageBox(this, "Group edited");
 			finish();
 		} else {

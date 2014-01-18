@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Group name: " />
+            android:text="Name: " />
 
         <EditText
             android:id="@+id/editTextGroupName"
@@ -30,6 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="onClickAdd"
-        android:text="Create new group" />
+        android:text="Create new" />
 
 </LinearLayout>

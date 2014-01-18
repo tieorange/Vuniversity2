@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class AddGroupActivity extends MainActivity {
+public class AddSubjectActivity extends MainActivity {
 
 	Button buttonSubmitNew;
 	EditText editTextName;
@@ -19,7 +19,6 @@ public class AddGroupActivity extends MainActivity {
 
 		buttonSubmitNew = (Button) findViewById(R.id.buttonSubmitNewGroup);
 		editTextName = (EditText) findViewById(R.id.editTextGroupName);
-
 	}
 
 	public void onClickAdd(View view) {
@@ -35,7 +34,7 @@ public class AddGroupActivity extends MainActivity {
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 
-		if (mDbHelper.AddGroup(name)) {
+		if (mDbHelper.AddSubject(name)) {
 			Utility.ShowMessageBox(this, "added");
 			finish();
 		} else {
