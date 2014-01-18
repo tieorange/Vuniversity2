@@ -33,6 +33,7 @@
         <activity android:name="EditSubjectActivity" android:label="@string/edtiSubject" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name="TeachersActivity" android:label="@string/teachers"></activity>
         <activity android:name="EditTeacherActivity" android:label="@string/editTeachers"></activity>
+        <activity android:name="AddTeacherActivity" android:label="@string/addTeachers"></activity>
     </application>
 
 </manifest>

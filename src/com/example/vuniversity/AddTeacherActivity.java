@@ -4,18 +4,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import classes.TestAdapter;
 import classes.Utility;
 
-public class AddStudentActivity extends MainActivity {
+public class AddTeacherActivity extends MainActivity {
 	Button buttonSubmitNew;
-	EditText editTextName, editTextSurname, editTextEska;
-	String groupId;
+	EditText editTextName, editTextSurname;
+	LinearLayout linearViewEska;
 
 	public void onClickAdd(View view) {
 		if (editTextName.getText().length() <= 0
-				|| editTextSurname.getText().length() <= 0
-				|| editTextEska.getText().length() <= 0) {
+				|| editTextSurname.getText().length() <= 0) {
 			Utility.ShowMessageBox(view.getContext(),
 					"Fill all the fields please..");
 			return;
@@ -23,13 +23,12 @@ public class AddStudentActivity extends MainActivity {
 
 		String name = editTextName.getText().toString();
 		String surname = editTextSurname.getText().toString();
-		String eska = editTextEska.getText().toString();
 
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 
-		if (mDbHelper.AddStudent(name, surname, eska, groupId)) {
+		if (mDbHelper.AddTeacher(name, surname)) {
 			Utility.ShowMessageBox(this, "added");
 			finish();
 		} else {
@@ -42,22 +41,12 @@ public class AddStudentActivity extends MainActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_student);
-		if (savedInstanceState == null) {
-		    Bundle extras = getIntent().getExtras();
-		    if(extras == null) {
-		        groupId= null;
-		    } else {
-		        groupId= extras.getString("id");
-		    }
-		} else {
-		    groupId= (String) savedInstanceState.getSerializable("id");
-		}
 
 		buttonSubmitNew = (Button) findViewById(R.id.buttonSubmitNewStudent);
 		editTextName = (EditText) findViewById(R.id.editTextStudentName);
 		editTextSurname = (EditText) findViewById(R.id.editTextStudentSurname);
-		editTextEska = (EditText) findViewById(R.id.editTextStudentEska);
-
+		linearViewEska = (LinearLayout) findViewById(R.id.linearEska2);
+		linearViewEska.setVisibility(View.GONE);
 	}
 
 }
