@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import classes.Group;
+import classes.Subject;
 import classes.TestAdapter;
 import classes.Utility;
 
@@ -38,7 +38,7 @@ public class EditSubjectActivity extends MainActivity {
 		mDbHelper.open();
 
 		// set data to fields
-		editTextName.setText((CharSequence) mDbHelper.getGroupById(subjectId)
+		editTextName.setText((CharSequence) mDbHelper.getSubjectById(subjectId)
 				.getName());
 
 	}
@@ -53,13 +53,13 @@ public class EditSubjectActivity extends MainActivity {
 		// get data from fields
 		String name = editTextName.getText().toString();
 
-		Group group = new Group(subjectId, name);
+		Subject item = new Subject(subjectId, name);
 
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
-		if (mDbHelper.EditGroup(group, subjectId)) {
-			Utility.ShowMessageBox(this, "Group edited");
+		if (mDbHelper.EditSubject(item, subjectId)) {
+			Utility.ShowMessageBox(this, "edited");
 			finish();
 		} else {
 			Utility.ShowMessageBox(this, "OOPS try again!");

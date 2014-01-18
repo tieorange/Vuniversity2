@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import classes.Group;
 import classes.Subject;
 import classes.TestAdapter;
 import classes.Utility;
@@ -107,10 +106,10 @@ public class SubjectsActivity extends MainActivity {
 			break;
 		}
 		case R.id.contextMenuEditItem: {
-			// Intent intent = new Intent(this, EditSubjectActivity.class);
-			// intent.putExtra("subjectId", Item.getId());
-			// startActivity(intent);
-			// break;
+			 Intent intent = new Intent(this, EditSubjectActivity.class);
+			 intent.putExtra("subjectId", Item.getId());
+			 startActivity(intent);
+			 break;
 		}
 
 		}

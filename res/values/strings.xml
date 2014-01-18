@@ -12,5 +12,6 @@
     <string name="edtiGroup">Edit group</string>
     <string name="subjects">Subjects</string>
     <string name="addNewSubject">Add new subject</string>
+    <string name="edtiSubject">Edit subject</string>
 
 </resources>

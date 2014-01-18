@@ -30,6 +30,7 @@
         <activity android:name="EditGroupActivity" android:label="@string/edtiGroup" ></activity>
         <activity android:name="SubjectsActivity" android:label="@string/subjects"></activity>
         <activity android:name="AddSubjectActivity" android:label="@string/addNewSubject"></activity>
+        <activity android:name="EditSubjectActivity" android:label="@string/edtiSubject" ></activity>
     </application>
 
 </manifest>

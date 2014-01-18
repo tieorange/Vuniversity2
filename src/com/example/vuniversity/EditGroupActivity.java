@@ -53,12 +53,12 @@ public class EditGroupActivity extends MainActivity {
 		// get data from fields
 		String name = editTextName.getText().toString();
 
-		Group group = new Group(groupId, name);
+		Group item = new Group(groupId, name);
 
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
-		if (mDbHelper.EditGroup(group, groupId)) {
+		if (mDbHelper.EditGroup(item, groupId)) {
 			Utility.ShowMessageBox(this, "Group edited");
 			finish();
 		} else {

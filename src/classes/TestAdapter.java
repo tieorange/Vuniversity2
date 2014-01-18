@@ -95,14 +95,14 @@ public class TestAdapter {
 		}
 	}
 
-	public boolean EditStudent(Student student, String id) {
+	public boolean EditStudent(Student item, String id) {
 		try {
 			String strFilter = "id=" + id;
 			ContentValues args = new ContentValues();
-			args.put("name", student.getName());
-			args.put("surname", student.getSurname());
-			args.put("Eska", student.getEska());
-			args.put("groupId", student.getGroupId());
+			args.put("name", item.getName());
+			args.put("surname", item.getSurname());
+			args.put("Eska", item.getEska());
+			args.put("groupId", item.getGroupId());
 			mDb.update("student", args, strFilter, null);
 			return true;
 		} catch (Exception ex) {
@@ -221,18 +221,17 @@ public class TestAdapter {
 		}
 	}
 
-	public boolean EditGroup(Group group, String id) {
+	public boolean EditGroup(Group item, String id) {
 		try {
 			String strFilter = "id=" + id;
 			ContentValues args = new ContentValues();
-			args.put("name", group.getName());
+			args.put("name", item.getName());
 			mDb.update("\"group\"", args, strFilter, null);
 			return true;
 		} catch (Exception ex) {
 			Log.d("Edit error", ex.toString());
 			return false;
 		}
-
 	}
 
 	public boolean isGroupExist(Group group) {
@@ -315,6 +314,37 @@ public class TestAdapter {
 
 		} catch (Exception ex) {
 			Log.d("Add group error", ex.toString());
+			return false;
+		}
+	}
+
+	public Subject getSubjectById(String id) {
+		try {
+			String sql = "SELECT * FROM subject WHERE id = " + id;
+			Subject subject = new Subject();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					subject.setId(mCur.getString(0));
+					subject.setName(mCur.getString(1));
+				}
+			}
+			return subject;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getData >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
+	public boolean EditSubject(Subject item, String id) {
+		try {
+			String strFilter = "id=" + id;
+			ContentValues args = new ContentValues();
+			args.put("name", item.getName());
+			mDb.update("subject", args, strFilter, null);
+			return true;
+		} catch (Exception ex) {
+			Log.d("Edit error", ex.toString());
 			return false;
 		}
 	}
