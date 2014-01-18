@@ -349,4 +349,35 @@ public class TestAdapter {
 		}
 	}
 
+	
+	//***** TEACHERS &*****
+	public ArrayList<Teacher> getAllTeachers() {
+		try {
+			String sql = "SELECT * FROM teacher";
+			ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					do {
+						Teacher teacher = new Teacher();
+						teacher.setId(mCur.getString(0));
+						teacher.setName(mCur.getString(1));
+						teacher.setSurname(mCur.getString(2));
+						// Adding contact to list
+						teacherList.add(teacher);
+					} while (mCur.moveToNext());
+				}
+			}
+			return teacherList;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
+	public void RemoveTeacherById(String id) {
+		mDb.delete("teacher", "id=?", new String[] { (id) });
+		
+	}
+
 }

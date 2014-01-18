@@ -13,6 +13,30 @@ public class EditGroupActivity extends MainActivity {
 	EditText editTextName;
 	String groupId;
 
+	public void onClickAdd(View view) {
+		if (editTextName.getText().length() <= 0) {
+			Utility.ShowMessageBox(view.getContext(),
+					"Fill all the fields please..");
+			return;
+		}
+
+		// get data from fields
+		String name = editTextName.getText().toString();
+
+		Group item = new Group(groupId, name);
+
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+		if (mDbHelper.EditGroup(item, groupId)) {
+			Utility.ShowMessageBox(this, "Group edited");
+			finish();
+		} else {
+			Utility.ShowMessageBox(this, "OOPS try again!");
+		}
+
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,30 +64,6 @@ public class EditGroupActivity extends MainActivity {
 		// set data to fields
 		editTextName.setText((CharSequence) mDbHelper.getGroupById(groupId)
 				.getName());
-
-	}
-
-	public void onClickAdd(View view) {
-		if (editTextName.getText().length() <= 0) {
-			Utility.ShowMessageBox(view.getContext(),
-					"Fill all the fields please..");
-			return;
-		}
-
-		// get data from fields
-		String name = editTextName.getText().toString();
-
-		Group item = new Group(groupId, name);
-
-		TestAdapter mDbHelper = new TestAdapter(this);
-		mDbHelper.createDatabase();
-		mDbHelper.open();
-		if (mDbHelper.EditGroup(item, groupId)) {
-			Utility.ShowMessageBox(this, "Group edited");
-			finish();
-		} else {
-			Utility.ShowMessageBox(this, "OOPS try again!");
-		}
 
 	}
 }

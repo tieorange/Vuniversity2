@@ -12,16 +12,6 @@ public class AddGroupActivity extends MainActivity {
 	Button buttonSubmitNew;
 	EditText editTextName;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_group);
-
-		buttonSubmitNew = (Button) findViewById(R.id.buttonSubmitNewGroup);
-		editTextName = (EditText) findViewById(R.id.editTextGroupName);
-
-	}
-
 	public void onClickAdd(View view) {
 		if (editTextName.getText().length() <= 0) {
 			Utility.ShowMessageBox(view.getContext(),
@@ -41,6 +31,16 @@ public class AddGroupActivity extends MainActivity {
 		} else {
 			Utility.ShowMessageBox(this, "OOPS try again!");
 		}
+
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.add_group);
+
+		buttonSubmitNew = (Button) findViewById(R.id.buttonSubmitNewGroup);
+		editTextName = (EditText) findViewById(R.id.editTextGroupName);
 
 	}
 

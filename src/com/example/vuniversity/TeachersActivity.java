@@ -15,13 +15,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import classes.Student;
+import classes.Teacher;
 import classes.TestAdapter;
 import classes.Utility;
 
-public class StudentsActivity extends MainActivity {
-	private ArrayList<Student> listItems;
+public class TeachersActivity extends MainActivity {
+	private ArrayList<Teacher> listItems;
 	private ListView listView;
-	private String groupId;
 
 	@Override
 	protected void onResume() {
@@ -31,18 +31,8 @@ public class StudentsActivity extends MainActivity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (savedInstanceState == null) {
-			Bundle extras = getIntent().getExtras();
-			if (extras == null) {
-				groupId = null;
-			} else {
-				groupId = extras.getString("groupId");
-			}
-		} else {
-			groupId = (String) savedInstanceState.getSerializable("groupId");
-		}
-
 		setContentView(R.layout.list);
+		
 		listView = (ListView) findViewById(R.id.listView);
 		registerForContextMenu(listView);
 		loadList();
@@ -52,7 +42,7 @@ public class StudentsActivity extends MainActivity {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long arg) {
-				Student selectedItem = (Student) adapter.getAdapter().getItem(
+				Teacher selectedItem = (Teacher) adapter.getAdapter().getItem(
 						position);
 				Utility.ShowMessageBox(view.getContext(),
 						selectedItem.getName() + " is clicked");
@@ -79,24 +69,24 @@ public class StudentsActivity extends MainActivity {
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 
-		listItems = mDbHelper.getAllStudents(groupId);
-		ArrayAdapter<Student> adapter = new ArrayAdapter<Student>(this,
+		listItems = mDbHelper.getAllTeachers();
+		ArrayAdapter<Teacher> adapter = new ArrayAdapter<Teacher>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
 
-		Utility.ShowMessageBox(this, "Students loaded");
+		Utility.ShowMessageBox(this, "loaded");
 		mDbHelper.close();
 	}
 
 	public void onClickAddNew(View view) {
-		Intent intent = new Intent(view.getContext(), AddStudentActivity.class);
-		intent.putExtra("id", groupId);
-		startActivity(intent);
+//		Intent intent = new Intent(view.getContext(), AddStudentActivity.class);
+//		intent.putExtra("id", groupId);
+//		startActivity(intent);
 
 	}
 
 	private Adapter getListAdapter() {
-		return new ArrayAdapter<Student>(this,
+		return new ArrayAdapter<Teacher>(this,
 				android.R.layout.simple_list_item_1, listItems);
 	}
 
@@ -104,22 +94,22 @@ public class StudentsActivity extends MainActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
 				.getMenuInfo();
-		Student Item = (Student) getListAdapter().getItem(info.position);
+		Teacher Item = (Teacher) getListAdapter().getItem(info.position);
 		switch (item.getItemId()) {
 		case R.id.contextMenuDeleteItem: {
 			TestAdapter mDbHelper = new TestAdapter(this);
 			mDbHelper.createDatabase();
 			mDbHelper.open();
-			mDbHelper.RemoveStudentById(Item.getId());
+			mDbHelper.RemoveTeacherById(Item.getId());
 			mDbHelper.close();
 			loadList();
 			break;
 		}
 		case R.id.contextMenuEditItem: {
-			Intent intent = new Intent(this, EditStudentActivity.class);
-			intent.putExtra("studentId", Item.getId());
-			intent.putExtra("groupId", Item.getGroupId());
-			startActivity(intent);
+//			Intent intent = new Intent(this, EditStudentActivity.class);
+//			intent.putExtra("studentId", Item.getId());
+//			intent.putExtra("groupId", Item.getGroupId());
+//			startActivity(intent);
 			break;
 		}
 
