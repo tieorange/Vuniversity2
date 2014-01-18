@@ -82,7 +82,7 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return Name + " " + Surname;
+		return Name + " " + Surname + "\n S" + Eska;
 	}
 
 }
