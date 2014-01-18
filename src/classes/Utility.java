@@ -45,7 +45,7 @@ public class Utility {
 	public static void ShowMessageBox(Context cont, String msg) {
 		Toast toast = Toast.makeText(cont, msg, Toast.LENGTH_SHORT);
 		// toast.setGravity(Gravity.CENTER, 0, 0);
-		toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
+		toast.setGravity(Gravity.BOTTOM | Gravity.RIGHT, 0, 0);
 		toast.show();
 	}
 }
