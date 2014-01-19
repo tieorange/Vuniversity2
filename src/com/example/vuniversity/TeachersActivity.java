@@ -43,10 +43,8 @@ public class TeachersActivity extends MainActivity {
 	}
 
 	public void onClickAddNew(View view) {
-//		Intent intent = new Intent(view.getContext(), AddStudentActivity.class);
-//		intent.putExtra("id", groupId);
-//		startActivity(intent);
-
+		Intent intent = new Intent(view.getContext(), AddTeacherActivity.class);
+		startActivity(intent);
 	}
 
 	@Override
@@ -78,7 +76,7 @@ public class TeachersActivity extends MainActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
-		
+
 		listView = (ListView) findViewById(R.id.listView);
 		registerForContextMenu(listView);
 		loadList();

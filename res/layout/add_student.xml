@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:inputType="textCapSentences" />
     </LinearLayout>
-    
+
     <LinearLayout
         android:id="@+id/linearEska2"
         android:layout_width="match_parent"
@@ -68,5 +68,10 @@
         android:layout_gravity="center_horizontal"
         android:onClick="onClickAdd"
         android:text="Create new" />
+
+    <Spinner
+        android:id="@+id/spinnerGroups"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -22,10 +22,56 @@ public class GroupsActivity extends MainActivity {
 	private ArrayList<Group> listItems;
 	private ListView listView;
 
+	private Adapter getListAdapter() {
+		return new ArrayAdapter<Group>(this,
+				android.R.layout.simple_list_item_1, listItems);
+	}
+
+	public void loadList() {
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+
+		listItems = mDbHelper.getAllGroups();
+		ArrayAdapter<Group> adapter = new ArrayAdapter<Group>(this,
+				android.R.layout.simple_list_item_1, listItems);
+		listView.setAdapter(adapter);
+
+		Utility.ShowMessageBox(this, "Groups loaded");
+		mDbHelper.close();
+	}
+
+	public void onClickAddNew(View view) {
+		Intent intent = new Intent(view.getContext(), AddGroupActivity.class);
+		startActivity(intent);
+	}
+
 	@Override
-	protected void onResume() {
-		super.onResume();
-		loadList();
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+				.getMenuInfo();
+		Group Item = (Group) getListAdapter().getItem(info.position);
+		switch (item.getItemId()) {
+		case R.id.contextMenuDeleteItem: {
+
+			TestAdapter mDbHelper = new TestAdapter(this);
+			mDbHelper.createDatabase();
+			mDbHelper.open();
+			mDbHelper.RemoveGroupById(Item.getId());
+			mDbHelper.close();
+			loadList();
+			break;
+		}
+		case R.id.contextMenuEditItem: {
+			Intent intent = new Intent(this, EditGroupActivity.class);
+			intent.putExtra("groupId", Item.getId());
+			startActivity(intent);
+			break;
+		}
+
+		}
+
+		return true;
 	}
 
 	@Override
@@ -67,55 +113,9 @@ public class GroupsActivity extends MainActivity {
 
 	}
 
-	public void onClickAddNew(View view) {
-		Intent intent = new Intent(view.getContext(), AddGroupActivity.class);
-		startActivity(intent);
-	}
-
-	public void loadList() {
-		TestAdapter mDbHelper = new TestAdapter(this);
-		mDbHelper.createDatabase();
-		mDbHelper.open();
-
-		listItems = mDbHelper.getAllGroups();
-		ArrayAdapter<Group> adapter = new ArrayAdapter<Group>(this,
-				android.R.layout.simple_list_item_1, listItems);
-		listView.setAdapter(adapter);
-
-		Utility.ShowMessageBox(this, "Groups loaded");
-		mDbHelper.close();
-	}
-
-	private Adapter getListAdapter() {
-		return new ArrayAdapter<Group>(this,
-				android.R.layout.simple_list_item_1, listItems);
-	}
-
 	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
-				.getMenuInfo();
-		Group Item = (Group) getListAdapter().getItem(info.position);
-		switch (item.getItemId()) {
-		case R.id.contextMenuDeleteItem: {
-
-			TestAdapter mDbHelper = new TestAdapter(this);
-			mDbHelper.createDatabase();
-			mDbHelper.open();
-			mDbHelper.RemoveGroupById(Item.getId());
-			mDbHelper.close();
-			loadList();
-			break;
-		}
-		case R.id.contextMenuEditItem: {
-			Intent intent = new Intent(this, EditGroupActivity.class);
-			intent.putExtra("groupId", Item.getId());
-			startActivity(intent);
-			break;
-		}
-
-		}
-
-		return true;
+	protected void onResume() {
+		super.onResume();
+		loadList();
 	}
 }

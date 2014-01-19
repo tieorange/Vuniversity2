@@ -411,4 +411,20 @@ public class TestAdapter {
 		}
 	}
 
+	public boolean AddTeacher(String name, String surname) {try {
+		ContentValues cv = new ContentValues();
+		cv.put("name", name);
+		cv.put("surname", surname);
+
+		mDb.insert("teacher", null, cv);
+
+		Log.d(name + " " + surname + "  ADDED", "informationsaved");
+		return true;
+
+	} catch (Exception ex) {
+		Log.d("Add error", ex.toString());
+		return false;
+	}
+	}
+
 }
