@@ -45,7 +45,7 @@ public class TeachersActivity extends MainActivity {
 	public void onClickAddNew(View view) {
 		Intent intent = new Intent(view.getContext(), AddTeacherActivity.class);
 		startActivity(intent);
-	}
+	}	
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {

@@ -1,5 +1,7 @@
 package com.example.vuniversity;
 
+import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +13,7 @@ import classes.Utility;
 public class AddTeacherActivity extends MainActivity {
 	Button buttonSubmitNew;
 	EditText editTextName, editTextSurname;
-	LinearLayout linearViewEska;
+	LinearLayout linearLayoutAddSubject;
 
 	public void onClickAdd(View view) {
 		if (editTextName.getText().length() <= 0
@@ -37,16 +39,21 @@ public class AddTeacherActivity extends MainActivity {
 
 	}
 
+	public void onClickAddNewSubject(View view) {
+		Intent intent = new Intent(view.getContext(),
+				AddSubjectForTeacher.class);
+		startActivity(intent);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_student);
+		setContentView(R.layout.add_teacher);
 
 		buttonSubmitNew = (Button) findViewById(R.id.buttonSubmitNewStudent);
 		editTextName = (EditText) findViewById(R.id.editTextStudentName);
 		editTextSurname = (EditText) findViewById(R.id.editTextStudentSurname);
-		linearViewEska = (LinearLayout) findViewById(R.id.linearEska2);
-		linearViewEska.setVisibility(View.GONE);
+		linearLayoutAddSubject = (LinearLayout) findViewById(R.id.linearLayoutAddSubject);
+		linearLayoutAddSubject.setVisibility(View.GONE);
 	}
-
 }

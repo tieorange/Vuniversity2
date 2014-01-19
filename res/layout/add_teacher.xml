@@ -42,44 +42,36 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearEska2"
+        android:id="@+id/linearLayoutAddSubject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Eska: " />
+            android:layout_gravity="center_horizontal"
+            android:text="Subjects:" />
 
-        <EditText
-            android:id="@+id/editTextStudentEska"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="number"
-            android:maxLength="6" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
+        <Button
+            android:id="@+id/buttonAddNewSubjectForTeacher"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="group: " />
+            android:layout_gravity="left"
+            android:onClick="onClickAddNewSubject"
+            android:text="Add subject" />
 
-        <Spinner
-            android:id="@+id/spinnerGroups"
+        <ListView
+            android:id="@+id/listViewTeacherSubjects"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" >
+        </ListView>
     </LinearLayout>
 
     <Button
         android:id="@+id/buttonSubmitNewStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="onClickAdd"

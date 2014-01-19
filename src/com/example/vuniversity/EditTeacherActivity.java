@@ -1,5 +1,6 @@
 package com.example.vuniversity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +13,6 @@ import classes.Utility;
 public class EditTeacherActivity extends MainActivity {
 	Button buttonEdit;
 	EditText editTextName, editTextSurname;
-	LinearLayout linearViewEska;
 	String teacherId;
 
 	// finish editing
@@ -41,11 +41,17 @@ public class EditTeacherActivity extends MainActivity {
 		}
 
 	}
+	public void onClickAddNewSubject(View view) {
+		Intent intent = new Intent(view.getContext(),
+				AddSubjectForTeacher.class);
+		intent.putExtra("teacherId", teacherId);
+		startActivity(intent);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_student);
+		setContentView(R.layout.add_teacher);
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
@@ -61,7 +67,6 @@ public class EditTeacherActivity extends MainActivity {
 		buttonEdit = (Button) findViewById(R.id.buttonSubmitNewStudent);
 		editTextName = (EditText) findViewById(R.id.editTextStudentName);
 		editTextSurname = (EditText) findViewById(R.id.editTextStudentSurname);
-		linearViewEska = (LinearLayout) findViewById(R.id.linearEska2);
 		buttonEdit.setText("Save");
 
 		TestAdapter mDbHelper = new TestAdapter(this);
@@ -72,7 +77,6 @@ public class EditTeacherActivity extends MainActivity {
 		Teacher item = mDbHelper.getTeacherById(teacherId);
 		editTextName.setText((CharSequence) item.getName());
 		editTextSurname.setText((CharSequence) item.getSurname());
-		linearViewEska.setVisibility(View.GONE);
 
 	}
 }

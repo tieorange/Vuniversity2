@@ -12,7 +12,7 @@
 
     <Button
         android:id="@+id/buttonGroups"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="onClickButtons"
@@ -20,7 +20,7 @@
 
     <Button
         android:id="@+id/buttonTeachers"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="onClickButtons"
@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/buttonSubjects"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="onClickButtons"
