@@ -80,6 +80,7 @@ public void createDataBase() throws IOException
         String mPath = DB_PATH + DB_NAME; 
         //Log.v("mPath", mPath); 
         mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); 
+        mDataBase.execSQL("PRAGMA foreign_keys=ON");
         //mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS); 
         return mDataBase != null; 
     } 
@@ -103,6 +104,14 @@ public void createDataBase() throws IOException
 		// TODO Auto-generated method stub
 		
 	} 
+	@Override
+	public void onOpen(SQLiteDatabase db) {
+	    super.onOpen(db);
+	    if (!db.isReadOnly()) {
+	        // Enable foreign key constraints
+	        db.execSQL("PRAGMA foreign_keys=ON;");
+	    }
+	}
  
 } 
 

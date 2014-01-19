@@ -21,6 +21,21 @@ public class EditTeacherActivity extends MainActivity {
 	String teacherId;
 	ArrayList<TeacherGroup> listItems;
 
+	public void loadList() {
+
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+
+		listItems = mDbHelper.getAllTeacherGroups(teacherId);
+		ArrayAdapter<TeacherGroup> adapter = new ArrayAdapter<TeacherGroup>(
+				this, android.R.layout.simple_list_item_1, listItems);
+		listView.setAdapter(adapter);
+
+		Utility.ShowMessageBox(this, "loaded");
+		mDbHelper.close();
+	}
+
 	// finish editing
 	public void onClickAdd(View view) {
 		if (editTextName.getText().length() <= 0
@@ -47,20 +62,7 @@ public class EditTeacherActivity extends MainActivity {
 		}
 
 	}
-	public void loadList() {
 
-		TestAdapter mDbHelper = new TestAdapter(this);
-		mDbHelper.createDatabase();
-		mDbHelper.open();
-
-		listItems = mDbHelper.getAllTeacherGroups(teacherId);
-		ArrayAdapter<TeacherGroup> adapter = new ArrayAdapter<TeacherGroup>(this,
-				android.R.layout.simple_list_item_1, listItems);
-		listView.setAdapter(adapter);
-
-		Utility.ShowMessageBox(this, "loaded");
-		mDbHelper.close();
-	}
 	public void onClickAddNewSubject(View view) {
 		Intent intent = new Intent(view.getContext(),
 				AddSubjectForTeacher.class);
@@ -98,8 +100,13 @@ public class EditTeacherActivity extends MainActivity {
 		Teacher item = mDbHelper.getTeacherById(teacherId);
 		editTextName.setText((CharSequence) item.getName());
 		editTextSurname.setText((CharSequence) item.getSurname());
-		
-		loadList();
 
+		loadList();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		loadList();
 	}
 }
