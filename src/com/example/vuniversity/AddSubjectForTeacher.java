@@ -60,9 +60,16 @@ public class AddSubjectForTeacher extends MainActivity implements
 	}
 
 	public void onClickAdd(View view) {
-		String a = selectedGroupId;
-		String b = selectedSubjectId;
-		int i = 0;
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+		if (mDbHelper.AddTeacherGroup(teacherId, selectedSubjectId,
+				selectedGroupId)) {
+			Utility.ShowMessageBox(this, "edited");
+			finish();
+		} else {
+			Utility.ShowMessageBox(this, "OOPS try again!");
+		}
 
 	}
 

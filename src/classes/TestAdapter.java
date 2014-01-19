@@ -411,20 +411,109 @@ public class TestAdapter {
 		}
 	}
 
-	public boolean AddTeacher(String name, String surname) {try {
-		ContentValues cv = new ContentValues();
-		cv.put("name", name);
-		cv.put("surname", surname);
+	public boolean AddTeacher(String name, String surname) {
+		try {
+			ContentValues cv = new ContentValues();
+			cv.put("name", name);
+			cv.put("surname", surname);
 
-		mDb.insert("teacher", null, cv);
+			mDb.insert("teacher", null, cv);
 
-		Log.d(name + " " + surname + "  ADDED", "informationsaved");
-		return true;
+			Log.d(name + " " + surname + "  ADDED", "informationsaved");
+			return true;
 
-	} catch (Exception ex) {
-		Log.d("Add error", ex.toString());
-		return false;
+		} catch (Exception ex) {
+			Log.d("Add error", ex.toString());
+			return false;
+		}
 	}
+
+	// **** TEACHER SUBJECT ******
+	public boolean AddTeacherGroup(String teacherId, String subjectId,
+			String groupId) {
+		try {
+			ContentValues cv = new ContentValues();
+			cv.put("teacher_id", teacherId);
+			cv.put("subject_id", subjectId);
+			cv.put("group_id", groupId);
+
+			mDb.insert("teacher_groups", null, cv);
+
+			Log.d("  ADDED", "informationsaved");
+			return true;
+
+		} catch (Exception ex) {
+			Log.d("Add error", ex.toString());
+			return false;
+		}
 	}
 
+	public ArrayList<TeacherGroup> getAllTeacherGroups() {
+		try {
+
+			String sql = "SELECT	tg.id, t.id,	tg.subject_id, tg.group_id,g.name, s.name, t.name, t.surname"
+					+ " FROM teacher t"
+					+ " INNER JOIN teacher_groups tg ON t.id = tg.teacher_id"
+					+ " INNER JOIN subject s ON tg.subject_id = s.id"
+					+ " INNER JOIN \"group\" g ON tg.group_id = g.id";
+			ArrayList<TeacherGroup> teacherGroupList = new ArrayList<TeacherGroup>();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					do {
+						TeacherGroup item = new TeacherGroup();
+						item.setId(mCur.getString(0));
+						item.setTeacherId(mCur.getString(1));
+						item.setSubjectId(mCur.getString(2));
+						item.setGroupId(mCur.getString(3));
+						item.setGroupName(mCur.getString(4));
+						item.setSubjectName(mCur.getString(5));
+						item.setTeacherName(mCur.getString(6));
+						item.setTeacherSurname(mCur.getString(7));
+						// Adding contact to list
+						teacherGroupList.add(item);
+					} while (mCur.moveToNext());
+				}
+			}
+			return teacherGroupList;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
+	public ArrayList<TeacherGroup> getAllTeacherGroups(String id) {
+		try {
+
+			String sql = "SELECT	tg.id, t.id,	tg.subject_id, tg.group_id,g.name, s.name, t.name, t.surname"
+					+ " FROM teacher t"
+					+ " INNER JOIN teacher_groups tg ON t.id = tg.teacher_id"
+					+ " INNER JOIN subject s ON tg.subject_id = s.id"
+					+ " INNER JOIN \"group\" g ON tg.group_id = g.id"
+					+ " WHERE t.id = " + id;
+			ArrayList<TeacherGroup> teacherGroupList = new ArrayList<TeacherGroup>();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					do {
+						TeacherGroup item = new TeacherGroup();
+						item.setId(mCur.getString(0));
+						item.setTeacherId(mCur.getString(1));
+						item.setSubjectId(mCur.getString(2));
+						item.setGroupId(mCur.getString(3));
+						item.setGroupName(mCur.getString(4));
+						item.setSubjectName(mCur.getString(5));
+						item.setTeacherName(mCur.getString(6));
+						item.setTeacherSurname(mCur.getString(7));
+						// Adding contact to list
+						teacherGroupList.add(item);
+					} while (mCur.moveToNext());
+				}
+			}
+			return teacherGroupList;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
 }

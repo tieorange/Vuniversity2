@@ -1,19 +1,25 @@
 package com.example.vuniversity;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import classes.Teacher;
+import classes.TeacherGroup;
 import classes.TestAdapter;
 import classes.Utility;
 
 public class EditTeacherActivity extends MainActivity {
 	Button buttonEdit;
 	EditText editTextName, editTextSurname;
+	ListView listView;
 	String teacherId;
+	ArrayList<TeacherGroup> listItems;
 
 	// finish editing
 	public void onClickAdd(View view) {
@@ -41,6 +47,20 @@ public class EditTeacherActivity extends MainActivity {
 		}
 
 	}
+	public void loadList() {
+
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+
+		listItems = mDbHelper.getAllTeacherGroups(teacherId);
+		ArrayAdapter<TeacherGroup> adapter = new ArrayAdapter<TeacherGroup>(this,
+				android.R.layout.simple_list_item_1, listItems);
+		listView.setAdapter(adapter);
+
+		Utility.ShowMessageBox(this, "loaded");
+		mDbHelper.close();
+	}
 	public void onClickAddNewSubject(View view) {
 		Intent intent = new Intent(view.getContext(),
 				AddSubjectForTeacher.class);
@@ -66,6 +86,7 @@ public class EditTeacherActivity extends MainActivity {
 
 		buttonEdit = (Button) findViewById(R.id.buttonSubmitNewStudent);
 		editTextName = (EditText) findViewById(R.id.editTextStudentName);
+		listView = (ListView) findViewById(R.id.listViewTeacherSubjects);
 		editTextSurname = (EditText) findViewById(R.id.editTextStudentSurname);
 		buttonEdit.setText("Save");
 
@@ -77,6 +98,8 @@ public class EditTeacherActivity extends MainActivity {
 		Teacher item = mDbHelper.getTeacherById(teacherId);
 		editTextName.setText((CharSequence) item.getName());
 		editTextSurname.setText((CharSequence) item.getSurname());
+		
+		loadList();
 
 	}
 }
