@@ -1,17 +1,47 @@
 package com.example.vuniversity;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import classes.Group;
 import classes.Student;
 import classes.TestAdapter;
 import classes.Utility;
 
-public class EditStudentActivity extends MainActivity {
+public class EditStudentActivity extends MainActivity implements
+		OnItemSelectedListener {
 	Button buttonEdit;
 	EditText editTextName, editTextSurname, editTextEska;
+	Spinner spinnerGroups;
 	String groupId, studentId;
+	ArrayList<Group> listItems;
+
+	private Adapter getSpinnerAdapter() {
+		return new ArrayAdapter<Group>(this,
+				android.R.layout.simple_spinner_item, listItems);
+	}
+
+	public void loadSpinnerData() {
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+
+		listItems = mDbHelper.getAllGroups();
+		ArrayAdapter<Group> adapter = new ArrayAdapter<Group>(this,
+				android.R.layout.simple_spinner_item, listItems);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		// attaching data adapter to spinner
+		spinnerGroups.setAdapter(adapter);
+	}
 
 	// finish editing
 	public void onClickAdd(View view) {
@@ -76,6 +106,36 @@ public class EditStudentActivity extends MainActivity {
 		editTextName.setText((CharSequence) item.getName());
 		editTextSurname.setText((CharSequence) item.getSurname());
 		editTextEska.setText((CharSequence) item.getEska());
+		spinnerGroups = (Spinner) findViewById(R.id.spinnerGroups);
+		// Spinner click listener
+		spinnerGroups.setOnItemSelectedListener(this);
+		loadSpinnerData();
+		selectSpinnerItemByValue(spinnerGroups, groupId);
 
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position,
+			long id) {
+		// On selecting a spinner item
+		Group item = (Group) parent.getItemAtPosition(position);
+		groupId = item.getId();
+
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+	}
+
+	@SuppressWarnings("unchecked")
+	public void selectSpinnerItemByValue(Spinner spnr, String value) {
+		ArrayAdapter<Group> adapter = (ArrayAdapter<Group>) getSpinnerAdapter();
+		for (int position = 0; position < adapter.getCount(); position++) {
+			Group Item = (Group) adapter.getItem(position);
+			if (Item.getId().equals(value)) {
+				spnr.setSelection(position);
+				return;
+			}
+		}
 	}
 }
