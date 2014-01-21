@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    
+    <item
+        android:id="@+id/contextMenuPutMarkForStudent"
+        android:title="Put mark"/>
+    <item
+        android:id="@+id/contextMenuDeleteItem"
+        android:title="Remove"/>
+    <item
+        android:id="@+id/contextMenuEditItem"
+        android:title="Edit"/>
+
+</menu>

@@ -35,6 +35,7 @@
         <activity android:name="EditTeacherActivity" android:label="@string/editTeachers"></activity>
         <activity android:name="AddTeacherActivity" android:label="@string/addTeachers"></activity>
         <activity android:name="AddSubjectForTeacher" android:label="@string/addSubjectForTeacher" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name="PutMarkForStudent" android:label="@string/putMarkForStudent" android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 
 </manifest>

@@ -72,6 +72,13 @@ public class StudentsActivity extends MainActivity {
 			startActivity(intent);
 			break;
 		}
+		case R.id.contextMenuPutMarkForStudent: {
+			Intent intent = new Intent(this, PutMarkForStudent.class);
+			intent.putExtra("studentId", Item.getId());
+			intent.putExtra("groupId", Item.getGroupId());
+			startActivity(intent);
+			break;
+		}
 
 		}
 		return true;
@@ -117,7 +124,7 @@ public class StudentsActivity extends MainActivity {
 		menu.setHeaderTitle(header);
 		if (v.getId() == R.id.listView) {
 			MenuInflater inflater = getMenuInflater();
-			inflater.inflate(R.menu.context_menu, menu);
+			inflater.inflate(R.menu.student_put_mark_edit, menu);
 		}
 	}
 
