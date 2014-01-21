@@ -448,6 +448,22 @@ public class TestAdapter {
 		}
 	}
 
+	public boolean IsSubjectInGroupExists(String subjectId, String groupId) {
+		try {
+			String sql = "SELECT * FROM teacher_groups WHERE group_id = "
+					+ groupId + " AND subject_id = " + subjectId;
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur.getCount() > 0)
+				return true;
+			else
+				return false;
+
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
 	public ArrayList<TeacherGroup> getAllTeacherGroups() {
 		try {
 
