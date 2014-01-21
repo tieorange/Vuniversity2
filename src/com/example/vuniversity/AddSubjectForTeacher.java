@@ -63,6 +63,12 @@ public class AddSubjectForTeacher extends MainActivity implements
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
+		if(mDbHelper.IsSubjectInGroupExists(selectedSubjectId, selectedGroupId))
+		{
+			Utility.ShowMessageBox(this, "This subject already exists in group");			
+			return;
+		}
+		
 		if (mDbHelper.AddTeacherGroup(teacherId, selectedSubjectId,
 				selectedGroupId)) {
 			Utility.ShowMessageBox(this, "edited");

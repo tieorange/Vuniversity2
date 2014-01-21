@@ -498,6 +498,10 @@ public class TestAdapter {
 		}
 	}
 
+	public void RemoveTeacherGroupById(String id) {
+		mDb.delete("teacher_groups", "id=?", new String[] { (id) });
+	}
+
 	public ArrayList<TeacherGroup> getAllTeacherGroups(String id) {
 		try {
 

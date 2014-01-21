@@ -4,11 +4,19 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+import classes.Student;
 import classes.Teacher;
 import classes.TeacherGroup;
 import classes.TestAdapter;
@@ -20,6 +28,11 @@ public class EditTeacherActivity extends MainActivity {
 	ListView listView;
 	String teacherId;
 	ArrayList<TeacherGroup> listItems;
+
+	private Adapter getListAdapter() {
+		return new ArrayAdapter<TeacherGroup>(this,
+				android.R.layout.simple_list_item_1, listItems);
+	}
 
 	public void loadList() {
 
@@ -70,6 +83,25 @@ public class EditTeacherActivity extends MainActivity {
 		startActivity(intent);
 	}
 
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+				.getMenuInfo();
+		TeacherGroup Item = (TeacherGroup) getListAdapter().getItem(
+				info.position);
+		switch (item.getItemId()) {
+		case R.id.contextMenuDeleteItem: {
+			TestAdapter mDbHelper = new TestAdapter(this);
+			mDbHelper.createDatabase();
+			mDbHelper.open();
+			mDbHelper.RemoveTeacherGroupById(Item.getId());
+			mDbHelper.close();
+			loadList();
+			break;
+		}
+		}
+		return true;
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -91,6 +123,7 @@ public class EditTeacherActivity extends MainActivity {
 		listView = (ListView) findViewById(R.id.listViewTeacherSubjects);
 		editTextSurname = (EditText) findViewById(R.id.editTextStudentSurname);
 		buttonEdit.setText("Save");
+		registerForContextMenu(listView);
 
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
@@ -102,6 +135,30 @@ public class EditTeacherActivity extends MainActivity {
 		editTextSurname.setText((CharSequence) item.getSurname());
 
 		loadList();
+		listView.setClickable(true);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View view,
+					int position, long arg) {
+				TeacherGroup selectedItem = (TeacherGroup) adapter.getAdapter()
+						.getItem(position);
+				Utility.ShowMessageBox(view.getContext(),
+						selectedItem.getSubjectName() + " is clicked");
+				// Intent intent = new Intent(view.getContext().)
+			}
+		});
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+		String header = listItems.get(info.position).toString();
+		menu.setHeaderTitle(header);
+		if (v.getId() == R.id.listViewTeacherSubjects) {
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.remove_only_context_menu, menu);
+		}
 	}
 
 	@Override
