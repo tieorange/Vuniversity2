@@ -2,8 +2,10 @@ package com.example.vuniversity;
 
 import java.util.ArrayList;
 
+import classes.Group;
 import classes.Subject;
 import classes.TestAdapter;
+import classes.Utility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +19,32 @@ public class PutMarkForStudent extends MainActivity implements
 	Spinner spinnerSubject, spinnerMark;
 	Button buttonPutMark;
 	ArrayList<Subject> listSubjects;
-	String studentId, groupId;
+	String[] listMarks = new String[] { "1", "2", "3", "4", "5", "6" };
+	String studentId, groupId, selectedSubjectId, selectedMark;
+
+	private void loadSpinnerData() {
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+
+		// ****subjects
+		listSubjects = mDbHelper.getAllSubjects();
+		ArrayAdapter<Subject> adapterSubjects = new ArrayAdapter<Subject>(this,
+				android.R.layout.simple_spinner_item, listSubjects);
+		adapterSubjects
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// attaching data adapter to spinner
+		spinnerSubject.setAdapter(adapterSubjects);
+
+		// ****marks
+		ArrayAdapter<String> adapterMarks = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, listMarks);
+		adapterMarks
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// attaching data adapter to spinner
+		spinnerMark.setAdapter(adapterMarks);
+
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,26 +72,23 @@ public class PutMarkForStudent extends MainActivity implements
 		loadSpinnerData();
 	}
 
-	private void loadSpinnerData() {
-		TestAdapter mDbHelper = new TestAdapter(this);
-		mDbHelper.createDatabase();
-		mDbHelper.open();
-
-		// ****subjects
-		listSubjects = mDbHelper.getAllSubjects();
-		ArrayAdapter<Subject> adapterSubjects = new ArrayAdapter<Subject>(this,
-				android.R.layout.simple_spinner_item, listSubjects);
-		adapterSubjects
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// attaching data adapter to spinner
-		spinnerSubject.setAdapter(adapterSubjects);
-
-	}
-
 	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-			long arg3) {
-		// TODO Auto-generated method stub
+	public void onItemSelected(AdapterView<?> parent, View view, int position,
+			long id) {
+		switch (parent.getId()) {
+		case R.id.spinnerSubjectOfMark: {
+			Subject item = (Subject) parent.getItemAtPosition(position);
+			selectedSubjectId = item.getId();
+			Utility.ShowMessageBox(parent.getContext(), selectedSubjectId);
+			break;
+		}
+		case R.id.spinnerMarkOfStudent: {
+			String item = (String) parent.getItemAtPosition(position);
+			selectedMark = item;
+			Utility.ShowMessageBox(parent.getContext(), selectedMark);
+			break;
+		}
+		}
 
 	}
 
