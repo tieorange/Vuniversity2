@@ -46,15 +46,14 @@ public class Student {
 
 	public String getEska() {
 		return Eska;
-	}	
-	
+	}
 
 	public String getGroupId() {
 		return GroupId;
 	}
 
 	public String getId() {
-		return Id;	
+		return Id;
 	}
 
 	public String getName() {
@@ -87,7 +86,7 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return Name + " " + Surname + "\n S" + Eska;
+		return Surname + " " + Name + "\n S" + Eska;
 	}
 
 }

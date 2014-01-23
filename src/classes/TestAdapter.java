@@ -298,8 +298,17 @@ public class TestAdapter {
 
 	// ****** SUBJECT *****
 	public ArrayList<Subject> getAllSubjects() {
+		return getAllSubjects(Utility.ID, Utility.ASC);
+	}
+
+	public ArrayList<Subject> getAllSubjects(String ORDER_BY, String ASC_DESC) {
 		try {
-			String sql = "SELECT * FROM subject";
+			if (ORDER_BY == null)
+				ORDER_BY = "id";
+			if (ASC_DESC == null)
+				ASC_DESC = "ASC";
+			String sql = "SELECT * FROM subject" + " ORDER BY " + ORDER_BY
+					+ " " + ASC_DESC;
 			ArrayList<Subject> subjectList = new ArrayList<Subject>();
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur != null) {
@@ -416,8 +425,18 @@ public class TestAdapter {
 
 	// ***** TEACHERS &*****
 	public ArrayList<Teacher> getAllTeachers() {
+		return getAllTeachers(Utility.ID, Utility.ASC);
+	}
+
+	public ArrayList<Teacher> getAllTeachers(String ORDER_BY, String ASC_DESC) {
 		try {
-			String sql = "SELECT * FROM teacher";
+			if (ORDER_BY == null)
+				ORDER_BY = "id";
+			if (ASC_DESC == null)
+				ASC_DESC = "ASC";
+
+			String sql = "SELECT * FROM teacher" + " ORDER BY " + ORDER_BY
+					+ " " + ASC_DESC;
 			ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur != null) {
