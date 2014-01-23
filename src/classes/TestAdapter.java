@@ -297,6 +297,32 @@ public class TestAdapter {
 		}
 	}
 
+	public ArrayList<Subject> getSubjectsOfGroup(String groupId) {
+		try {
+			String sql = "SELECT s.id, s.name" + " FROM teacher_groups tg"
+					+ " INNER JOIN subject s ON tg.subject_id = s.id"
+					+ " WHERE group_id = " + groupId;
+			ArrayList<Subject> subjectList = new ArrayList<Subject>();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					do {
+						Subject subject = new Subject();
+						subject.setId(mCur.getString(0));
+						subject.setName(mCur.getString(1));
+
+						// Adding contact to list
+						subjectList.add(subject);
+					} while (mCur.moveToNext());
+				}
+			}
+			return subjectList;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
 	public void RemoveSubjectById(String id) {
 		mDb.delete("subject", "id=?", new String[] { (id) });
 
@@ -367,6 +393,30 @@ public class TestAdapter {
 				}
 			}
 			return teacherList;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
+	public Teacher getTeacherByGroupAndSubject(String groupId, String subjectId) {
+		try {
+			String sql = "SELECT t.id, t.name, t.surname FROM teacher t "
+					+ "INNER JOIN teacher_groups tg ON t.id = tg.teacher_id"
+					+ " WHERE tg.subject_id = " + subjectId
+					+ " AND tg.group_id = " + groupId;
+
+			Teacher teacher = new Teacher();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					teacher = new Teacher();
+					teacher.setId(mCur.getString(0));
+					teacher.setName(mCur.getString(1));
+					teacher.setSurname(mCur.getString(2));
+				}
+			}
+			return teacher;
 		} catch (SQLException mSQLException) {
 			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
@@ -534,6 +584,28 @@ public class TestAdapter {
 		} catch (SQLException mSQLException) {
 			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
+		}
+	}
+
+	// *****MARKS *******
+	public boolean AddMark(String studentId, String subjectId, String groupId,
+			String mark) {
+		try {
+			ContentValues cv = new ContentValues();
+			Teacher teacher = getTeacherByGroupAndSubject(groupId, subjectId);
+			cv.put("studentId", studentId);
+			cv.put("subjectId", subjectId);
+			cv.put("teacherId", teacher.getId());
+			cv.put("mark", mark);
+
+			mDb.insert("mark", null, cv);
+
+			Log.d(" ADDED", "informationsaved");
+			return true;
+
+		} catch (Exception ex) {
+			Log.d("Add error", ex.toString());
+			return false;
 		}
 	}
 }

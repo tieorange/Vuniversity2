@@ -2,10 +2,7 @@ package com.example.vuniversity;
 
 import java.util.ArrayList;
 
-import classes.Group;
-import classes.Subject;
-import classes.TestAdapter;
-import classes.Utility;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +10,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import classes.Student;
+import classes.Subject;
+import classes.TestAdapter;
+import classes.Utility;
 
 public class PutMarkForStudent extends MainActivity implements
 		OnItemSelectedListener {
@@ -27,8 +28,12 @@ public class PutMarkForStudent extends MainActivity implements
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 
+		// Set title
+		Student currentStudent = mDbHelper.getStudentById(studentId);
+		if (currentStudent != null)
+			setTitle(currentStudent.toString());
 		// ****subjects
-		listSubjects = mDbHelper.getAllSubjects();
+		listSubjects = mDbHelper.getSubjectsOfGroup(groupId);
 		ArrayAdapter<Subject> adapterSubjects = new ArrayAdapter<Subject>(this,
 				android.R.layout.simple_spinner_item, listSubjects);
 		adapterSubjects
@@ -43,6 +48,24 @@ public class PutMarkForStudent extends MainActivity implements
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// attaching data adapter to spinner
 		spinnerMark.setAdapter(adapterMarks);
+
+	}
+
+	public void onClickAdd(View view) {
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+		if (selectedSubjectId == null || selectedMark == null)
+		{
+			Utility.ShowMessageBox(this, "OOPS you have no mark or group!");
+			return;
+		}
+		if (mDbHelper.AddMark(studentId, selectedSubjectId, groupId,
+				selectedMark)) {
+			finish();
+		} else {
+			Utility.ShowMessageBox(this, "OOPS try again!");
+		}
 
 	}
 
