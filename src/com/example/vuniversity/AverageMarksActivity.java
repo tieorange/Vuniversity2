@@ -104,7 +104,7 @@ public class AverageMarksActivity extends MainActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.groups_subjects, menu);
+		inflater.inflate(R.menu.marks, menu);
 		return true;// return true so to menu pop up is opens
 	}
 
@@ -112,13 +112,13 @@ public class AverageMarksActivity extends MainActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-		case R.id.menuByNameASC:
-			ORDER_BY = Utility.NAME;
+		case R.id.menuByMarksASC:
+			ORDER_BY = Utility.AVERAGE_MARK;
 			ASC_DESC = Utility.ASC;
 			loadList();
 			return true;
-		case R.id.menuByNameDESC:
-			ORDER_BY = Utility.NAME;
+		case R.id.menuByMarksDESC:
+			ORDER_BY = Utility.AVERAGE_MARK;
 			ASC_DESC = Utility.DESC;
 			loadList();
 			return true;

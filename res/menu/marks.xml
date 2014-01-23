@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuByMarksASC"
+        android:title="sort by makrs 1-2-3">
+    </item>
+    <item
+        android:id="@+id/menuByMarksDESC"
+        android:title="sort by marks 6-5-4">
+    </item>
+
+</menu>
