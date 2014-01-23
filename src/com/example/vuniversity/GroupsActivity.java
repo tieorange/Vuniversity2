@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
@@ -13,6 +15,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import classes.Group;
 import classes.TestAdapter;
@@ -21,6 +24,8 @@ import classes.Utility;
 public class GroupsActivity extends MainActivity {
 	private ArrayList<Group> listItems;
 	private ListView listView;
+	private ArrayAdapter<Group> adapter;
+	private EditText searchField;
 
 	private Adapter getListAdapter() {
 		return new ArrayAdapter<Group>(this,
@@ -33,7 +38,7 @@ public class GroupsActivity extends MainActivity {
 		mDbHelper.open();
 
 		listItems = mDbHelper.getAllGroups();
-		ArrayAdapter<Group> adapter = new ArrayAdapter<Group>(this,
+		adapter = new ArrayAdapter<Group>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
 
@@ -94,6 +99,24 @@ public class GroupsActivity extends MainActivity {
 				intent.putExtra("groupId", selectedItem.getId());
 				startActivity(intent);
 
+			}
+		});
+		searchField = (EditText) findViewById(R.id.search_field);
+		searchField.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void afterTextChanged(Editable arg0) {
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence cs, int arg1, int arg2,
+					int arg3) {
+				adapter.getFilter().filter(cs);
 			}
 		});
 	}

@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Filterable;
 import android.widget.ListView;
 import classes.Student;
 import classes.TestAdapter;
@@ -105,7 +104,6 @@ public class StudentsActivity extends MainActivity {
 
 		setContentView(R.layout.list);
 		listView = (ListView) findViewById(R.id.list);
-		searchField = (EditText) findViewById(R.id.search_field);
 
 		registerForContextMenu(listView);
 		loadList();
@@ -125,13 +123,11 @@ public class StudentsActivity extends MainActivity {
 
 			}
 		});
-
+		searchField = (EditText) findViewById(R.id.search_field);
 		searchField.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence cs, int arg1, int arg2,
-					int arg3) {
-				adapter.getFilter().filter(cs);
+			public void afterTextChanged(Editable arg0) {
 			}
 
 			@Override
@@ -140,7 +136,9 @@ public class StudentsActivity extends MainActivity {
 			}
 
 			@Override
-			public void afterTextChanged(Editable arg0) {
+			public void onTextChanged(CharSequence cs, int arg1, int arg2,
+					int arg3) {
+				adapter.getFilter().filter(cs);
 			}
 		});
 	}
