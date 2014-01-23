@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,19 +16,14 @@ import classes.Student;
 import classes.TestAdapter;
 import classes.Utility;
 
-public class EditStudentActivity extends MainActivity implements
-		OnItemSelectedListener {
+public class ShowDetailsStudent extends MainActivity {
 	Button buttonEdit;
 	EditText editTextName, editTextSurname, editTextEska;
 	Spinner spinnerGroups;
 	String groupId, studentId;
 	ArrayList<Group> listItems;
+	ArrayList<Mark> listMarks;
 	ListView listViewStudentMarks;
-
-	private Adapter getSpinnerAdapter() {
-		return new ArrayAdapter<Group>(this,
-				android.R.layout.simple_spinner_item, listItems);
-	}
 
 	public void loadSpinnerData() {
 		TestAdapter mDbHelper = new TestAdapter(this);
@@ -45,33 +39,19 @@ public class EditStudentActivity extends MainActivity implements
 		spinnerGroups.setAdapter(adapter);
 	}
 
-	// finish editing
-	public void onClickAdd(View view) {
-		if (editTextName.getText().length() <= 0
-				|| editTextSurname.getText().length() <= 0
-				|| editTextEska.getText().length() <= 0) {
-			Utility.ShowMessageBox(view.getContext(),
-					"Fill all the fields please..");
-			return;
-		}
-
-		// get data from fields
-		String name = editTextName.getText().toString();
-		String surname = editTextSurname.getText().toString();
-		String eska = editTextEska.getText().toString();
-
-		Student item = new Student(studentId, name, surname, eska, groupId);
+	public void loadList() {
 
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
-		if (mDbHelper.EditStudent(item, studentId)) {
-			Utility.ShowMessageBox(this, "edited");
-			finish();
-		} else {
-			Utility.ShowMessageBox(this, "OOPS try again!");
-		}
 
+		listMarks = mDbHelper.getMarksOfStudent(studentId);
+		ArrayAdapter<Mark> adapter = new ArrayAdapter<Mark>(this,
+				android.R.layout.simple_list_item_1, listMarks);
+		listViewStudentMarks.setAdapter(adapter);
+
+		Utility.ShowMessageBox(this, "Students loaded");
+		mDbHelper.close();
 	}
 
 	@Override
@@ -93,15 +73,17 @@ public class EditStudentActivity extends MainActivity implements
 					.getSerializable("studentId");
 		}
 
-		buttonEdit = (Button) findViewById(R.id.buttonSubmitNewStudent);
-		editTextName = (EditText) findViewById(R.id.editTextStudentName);
-		editTextSurname = (EditText) findViewById(R.id.editTextStudentSurname);
-		editTextEska = (EditText) findViewById(R.id.editTextStudentEska);
-		spinnerGroups = (Spinner) findViewById(R.id.spinnerGroups);
 		listViewStudentMarks = (ListView) findViewById(R.id.listViewStudentMarks);
-		listViewStudentMarks.setVisibility(View.GONE);
-		buttonEdit.setText("Save");
-		
+		buttonEdit = (Button) findViewById(R.id.buttonSubmitNewStudent);
+		buttonEdit.setVisibility(View.GONE);
+		editTextName = (EditText) findViewById(R.id.editTextStudentName);
+		editTextName.setFocusable(false);
+		editTextSurname = (EditText) findViewById(R.id.editTextStudentSurname);
+		editTextSurname.setFocusable(false);
+		editTextEska = (EditText) findViewById(R.id.editTextStudentEska);
+		editTextEska.setFocusable(false);
+		spinnerGroups = (Spinner) findViewById(R.id.spinnerGroups);
+		spinnerGroups.setFocusable(false);
 
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
@@ -113,35 +95,23 @@ public class EditStudentActivity extends MainActivity implements
 		editTextSurname.setText((CharSequence) item.getSurname());
 		editTextEska.setText((CharSequence) item.getEska());
 
-		// Spinner click listener
-		spinnerGroups.setOnItemSelectedListener(this);
 		loadSpinnerData();
-		selectSpinnerItemByValue(spinnerGroups, groupId);
+		loadList();
 
-	}
-
-	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int position,
-			long id) {
-		// On selecting a spinner item
-		Group item = (Group) parent.getItemAtPosition(position);
-		groupId = item.getId();
-
-	}
-
-	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
-	}
-
-	@SuppressWarnings("unchecked")
-	public void selectSpinnerItemByValue(Spinner spnr, String value) {
-		ArrayAdapter<Group> adapter = (ArrayAdapter<Group>) getSpinnerAdapter();
-		for (int position = 0; position < adapter.getCount(); position++) {
-			Group Item = (Group) adapter.getItem(position);
-			if (Item.getId().equals(value)) {
-				spnr.setSelection(position);
-				return;
+		// marks
+		listViewStudentMarks.setClickable(true);
+		listViewStudentMarks.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View view,
+					int position, long arg) {
+				Mark selectedItem = (Mark) adapter.getAdapter().getItem(
+						position);
+				Utility.ShowMessageBox(adapter.getContext(),
+						"Teacher: " + selectedItem.getTeacherName()
+								+ selectedItem.getTeacherSurname());
 			}
-		}
+		});
+
 	}
+
 }

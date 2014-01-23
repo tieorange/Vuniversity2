@@ -3,6 +3,8 @@ package classes;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.example.vuniversity.Mark;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -606,6 +608,39 @@ public class TestAdapter {
 		} catch (Exception ex) {
 			Log.d("Add error", ex.toString());
 			return false;
+		}
+	}
+
+	public ArrayList<Mark> getMarksOfStudent(String studentId) {
+		try {
+			String sql = "SELECT m.id, m.studentId, m.subjectId, m.teacherId, m.mark, s.name, t.name, t.surname"
+					+ " FROM mark m"
+					+ " INNER JOIN teacher t ON t.id = m.teacherId"
+					+ " INNER JOIN subject s ON s.id = m.subjectId"
+					+ " WHERE m.studentId = " + studentId;
+			ArrayList<Mark> list = new ArrayList<Mark>();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					do {
+						Mark item = new Mark();
+						item.setId(mCur.getString(0));
+						item.setStudentId(mCur.getString(1));
+						item.setSubjectId(mCur.getString(2));
+						item.setTeacherId(mCur.getString(3));
+						item.setMark(mCur.getString(4));
+						item.setSubjectName(mCur.getString(5));
+						item.setTeacherName(mCur.getString(6));
+						item.setTeacherSurname(mCur.getString(7));
+						// Adding contact to list
+						list.add(item);
+					} while (mCur.moveToNext());
+				}
+			}
+			return list;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
 		}
 	}
 }

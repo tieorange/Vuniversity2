@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
 import classes.Group;
 import classes.Subject;
 import classes.TestAdapter;
@@ -23,16 +22,6 @@ public class AddSubjectForTeacher extends MainActivity implements
 	ArrayList<Group> listGroups;
 	ArrayList<Subject> listSubjects;
 	String teacherId, selectedSubjectId, selectedGroupId;
-
-	private Adapter getSpinnerGroupAdapter() {
-		return new ArrayAdapter<Group>(this,
-				android.R.layout.simple_spinner_item, listGroups);
-	}
-
-	private Adapter getSpinnerSubjectAdapter() {
-		return new ArrayAdapter<Subject>(this,
-				android.R.layout.simple_spinner_item, listSubjects);
-	}
 
 	public void loadSpinnerData() {
 		TestAdapter mDbHelper = new TestAdapter(this);

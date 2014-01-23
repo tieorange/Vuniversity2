@@ -108,10 +108,12 @@ public class StudentsActivity extends MainActivity {
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long arg) {
 				Student selectedItem = (Student) adapter.getAdapter().getItem(
-						position);
-				Utility.ShowMessageBox(view.getContext(),
-						selectedItem.getName() + " is clicked");
-				// Intent intent = new Intent(view.getContext().)
+						position);				
+				Intent intent = new Intent(view.getContext(), ShowDetailsStudent.class);
+				intent.putExtra("groupId", groupId);
+				intent.putExtra("studentId", selectedItem.getId());
+				startActivity(intent);
+				
 			}
 		});
 	}

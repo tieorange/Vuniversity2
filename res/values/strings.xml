@@ -18,5 +18,6 @@
     <string name="addTeachers">Add new teacher</string>
     <string name="addSubjectForTeacher">Add new subject for teacher</string>
     <string name="putMarkForStudent">Put mark</string>
+    <string name="showDetailsStudent">Show details of student</string>
 
 </resources>
