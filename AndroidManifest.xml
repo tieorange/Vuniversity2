@@ -33,6 +33,7 @@
         </activity>
         <activity
             android:name="StudentsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/students" >
         </activity>
         <activity
@@ -70,6 +71,7 @@
         </activity>
         <activity
             android:name="EditTeacherActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/editTeachers" >
         </activity>
         <activity
@@ -88,6 +90,7 @@
         </activity>
         <activity
             android:name="ShowDetailsStudent"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/showDetailsStudent" >
         </activity>
     </application>

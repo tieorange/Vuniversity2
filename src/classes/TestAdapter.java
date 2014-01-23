@@ -3,7 +3,6 @@ package classes;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.example.vuniversity.Mark;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -642,5 +641,9 @@ public class TestAdapter {
 			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
 		}
+	}
+
+	public void RemoveMarkById(String id) {
+		mDb.delete("mark", "id=?", new String[] { (id) });
 	}
 }
