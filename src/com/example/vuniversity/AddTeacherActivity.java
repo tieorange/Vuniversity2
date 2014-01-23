@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import classes.Teacher;
 import classes.TestAdapter;
 import classes.Utility;
 
@@ -21,13 +22,18 @@ public class AddTeacherActivity extends MainActivity {
 					"Fill all the fields please..");
 			return;
 		}
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
 
 		String name = editTextName.getText().toString();
 		String surname = editTextSurname.getText().toString();
 
-		TestAdapter mDbHelper = new TestAdapter(this);
-		mDbHelper.createDatabase();
-		mDbHelper.open();
+		if (mDbHelper.isTeacherExist(new Teacher(name, surname))) {
+			Utility.ShowMessageBox(view.getContext(),
+					"Such teacher already exists");
+			return;
+		}
 
 		if (mDbHelper.AddTeacher(name, surname)) {
 			Utility.ShowMessageBox(this, "added");

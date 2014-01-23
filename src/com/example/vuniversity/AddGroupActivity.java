@@ -1,11 +1,12 @@
 package com.example.vuniversity;
 
-import classes.TestAdapter;
-import classes.Utility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import classes.Group;
+import classes.TestAdapter;
+import classes.Utility;
 
 public class AddGroupActivity extends MainActivity {
 
@@ -14,8 +15,7 @@ public class AddGroupActivity extends MainActivity {
 
 	public void onClickAdd(View view) {
 		if (editTextName.getText().length() <= 0) {
-			Utility.ShowMessageBox(view.getContext(),
-					"Enter the name please..");
+			Utility.ShowMessageBox(view.getContext(), "Enter the name please..");
 			return;
 		}
 
@@ -24,6 +24,12 @@ public class AddGroupActivity extends MainActivity {
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
+
+		if (mDbHelper.isGroupExist(new Group(name))) {
+			Utility.ShowMessageBox(view.getContext(),
+					"Such group already exists");
+			return;
+		}
 
 		if (mDbHelper.AddGroup(name)) {
 			Utility.ShowMessageBox(this, "added");

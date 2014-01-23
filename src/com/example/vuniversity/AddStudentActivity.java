@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import classes.Group;
+import classes.Student;
 import classes.TestAdapter;
 import classes.Utility;
 
@@ -57,6 +58,12 @@ public class AddStudentActivity extends MainActivity implements
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
+
+		if (mDbHelper.isStudentExist(new Student(eska))) {
+			Utility.ShowMessageBox(view.getContext(),
+					"Such student already exists");
+			return;
+		}
 
 		if (mDbHelper.AddStudent(name, surname, eska, groupId)) {
 			Utility.ShowMessageBox(this, "added");

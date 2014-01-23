@@ -2,6 +2,11 @@ package classes;
 
 public class Student {
 
+	public Student(String eska) {
+		super();
+		Eska = eska;
+	}
+
 	private String Id;
 	private String Name;
 	private String Surname;

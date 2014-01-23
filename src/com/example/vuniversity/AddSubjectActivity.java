@@ -1,5 +1,7 @@
 package com.example.vuniversity;
 
+import classes.Group;
+import classes.Subject;
 import classes.TestAdapter;
 import classes.Utility;
 import android.os.Bundle;
@@ -33,6 +35,12 @@ public class AddSubjectActivity extends MainActivity {
 		TestAdapter mDbHelper = new TestAdapter(this);
 		mDbHelper.createDatabase();
 		mDbHelper.open();
+		
+		if (mDbHelper.isSubjectExist(new Subject(name))) {
+			Utility.ShowMessageBox(view.getContext(),
+					"Such subject already exists");
+			return;
+		}
 
 		if (mDbHelper.AddSubject(name)) {
 			Utility.ShowMessageBox(this, "added");

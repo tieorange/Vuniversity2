@@ -126,6 +126,7 @@ public class ShowDetailsStudent extends MainActivity {
 		editTextEska.setText((CharSequence) item.getEska());
 
 		loadSpinnerData();
+		selectSpinnerItemByValue(spinnerGroups, groupId);
 		loadList();
 		Utility.setListViewHeightBasedOnChildren(listViewStudentMarks);
 
@@ -161,6 +162,23 @@ public class ShowDetailsStudent extends MainActivity {
 	protected void onResume() {
 		super.onResume();
 		loadList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void selectSpinnerItemByValue(Spinner spnr, String value) {
+		ArrayAdapter<Group> adapter = (ArrayAdapter<Group>) getSpinnerAdapter();
+		for (int position = 0; position < adapter.getCount(); position++) {
+			Group Item = (Group) adapter.getItem(position);
+			if (Item.getId().equals(value)) {
+				spnr.setSelection(position);
+				return;
+			}
+		}
+	}
+
+	private Adapter getSpinnerAdapter() {
+		return new ArrayAdapter<Group>(this,
+				android.R.layout.simple_spinner_item, listItems);
 	}
 
 }

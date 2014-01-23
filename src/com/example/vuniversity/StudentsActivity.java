@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
@@ -13,6 +15,8 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Filterable;
 import android.widget.ListView;
 import classes.Student;
 import classes.TestAdapter;
@@ -21,6 +25,7 @@ import classes.Utility;
 public class StudentsActivity extends MainActivity {
 	private ArrayList<Student> listItems;
 	private ListView listView;
+	private EditText searchField;
 	private String groupId;
 
 	private Adapter getListAdapter() {
@@ -98,7 +103,10 @@ public class StudentsActivity extends MainActivity {
 		}
 
 		setContentView(R.layout.list);
+		searchField = (EditText) findViewById(R.id.search_field);
+		searchField.addTextChangedListener(filterTextWatcher);
 		listView = (ListView) findViewById(R.id.listView);
+
 		registerForContextMenu(listView);
 		loadList();
 
@@ -108,14 +116,37 @@ public class StudentsActivity extends MainActivity {
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long arg) {
 				Student selectedItem = (Student) adapter.getAdapter().getItem(
-						position);				
-				Intent intent = new Intent(view.getContext(), ShowDetailsStudent.class);
+						position);
+				Intent intent = new Intent(view.getContext(),
+						ShowDetailsStudent.class);
 				intent.putExtra("groupId", groupId);
 				intent.putExtra("studentId", selectedItem.getId());
 				startActivity(intent);
-				
+
 			}
 		});
+	}
+
+	private TextWatcher filterTextWatcher = new TextWatcher() {
+
+		public void afterTextChanged(Editable s) {
+		}
+
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			((Filterable) getListAdapter()).getFilter().filter(s);
+		}
+
+	};
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		searchField.removeTextChangedListener(filterTextWatcher);
 	}
 
 	@Override

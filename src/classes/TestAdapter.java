@@ -3,7 +3,6 @@ package classes;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -168,8 +167,8 @@ public class TestAdapter {
 
 	public boolean isStudentExist(Student student) {
 		try {
-			String sql = "SELECT * FROM student WHERE Eska = "
-					+ student.getEska();
+			String sql = "SELECT * FROM student WHERE Eska = " + "'"
+					+ student.getEska() + "'";
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur.getCount() > 0)
 				return true;
@@ -236,8 +235,8 @@ public class TestAdapter {
 
 	public boolean isGroupExist(Group group) {
 		try {
-			String sql = "SELECT * FROM \"group\" WHERE name = "
-					+ group.getName();
+			String sql = "SELECT * FROM \"group\" WHERE name = " + "'"
+					+ group.getName() + "'" + " COLLATE NOCASE ";
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur.getCount() > 0)
 				return true;
@@ -318,6 +317,22 @@ public class TestAdapter {
 				}
 			}
 			return subjectList;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
+	public boolean isSubjectExist(Subject subject) {
+		try {
+			String sql = "SELECT * FROM subject WHERE name = " + "'"
+					+ subject.getName() + "'" + " COLLATE NOCASE ";
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur.getCount() > 0)
+				return true;
+			else
+				return false;
+
 		} catch (SQLException mSQLException) {
 			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
@@ -444,6 +459,24 @@ public class TestAdapter {
 			return teacher;
 		} catch (SQLException mSQLException) {
 			Log.e(TAG, "getData >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
+	public boolean isTeacherExist(Teacher item) {
+		try {
+			String sql = "SELECT * FROM teacher WHERE name = " + "'"
+					+ item.getName() + "'" + " COLLATE NOCASE"
+					+ " AND surname = " + "'" + item.getSurname() + "'"
+					+ " COLLATE NOCASE ";
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur.getCount() > 0)
+				return true;
+			else
+				return false;
+
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
 			throw mSQLException;
 		}
 	}
