@@ -24,8 +24,8 @@ import classes.Utility;
 public class StudentsActivity extends MainActivity {
 	private ArrayList<Student> listItems;
 	private ListView listView;
-	private EditText searchField;
 	private String groupId;
+	private EditText searchField;
 	private ArrayAdapter<Student> adapter;
 
 	private Adapter getListAdapter() {

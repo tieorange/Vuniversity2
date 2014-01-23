@@ -1,13 +1,12 @@
 package com.example.vuniversity;
 
-import classes.Group;
-import classes.Subject;
-import classes.TestAdapter;
-import classes.Utility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import classes.Subject;
+import classes.TestAdapter;
+import classes.Utility;
 
 public class AddSubjectActivity extends MainActivity {
 
