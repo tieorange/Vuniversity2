@@ -24,6 +24,7 @@ public class TestAdapter {
 
 	public TestAdapter createDatabase() throws SQLException {
 		try {
+			mDbHelper.close();
 			mDbHelper.createDataBase();
 		} catch (IOException mIOException) {
 			Log.e(TAG, mIOException.toString() + "  UnableToCreateDatabase");
@@ -33,7 +34,9 @@ public class TestAdapter {
 	}
 
 	public TestAdapter open() throws SQLException {
+		
 		try {
+			mDbHelper.close();
 			mDbHelper.openDataBase();
 			mDbHelper.close();
 			mDb = mDbHelper.getReadableDatabase();
@@ -139,8 +142,20 @@ public class TestAdapter {
 	}
 
 	public ArrayList<Student> getAllStudents(String id) {
+		return getAllStudents(id, "id", "ASC");
+
+	}
+
+	public ArrayList<Student> getAllStudents(String id, String ORDER_BY,
+			String ASC_DESC) {
 		try {
-			String sql = "SELECT * FROM student WHERE groupId = " + id;
+			if (ORDER_BY == null)
+				ORDER_BY = "id";
+			if (ASC_DESC == null)
+				ASC_DESC = "ASC";
+
+			String sql = "SELECT * FROM student WHERE groupId = " + id
+					+ " ORDER BY " + ORDER_BY + " " + ASC_DESC;
 			ArrayList<Student> studentList = new ArrayList<Student>();
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur != null) {

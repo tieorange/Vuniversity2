@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuBySurnameASC"
+        android:title="sort by surname abc">
+    </item>
+    <item
+        android:id="@+id/menuBySurnameDESC"
+        android:title="sort by surname zyx">
+    </item>
+    <item
+        android:id="@+id/menuByEskaASC"
+        android:title="sort by eska 123">
+    </item>
+    <item
+        android:id="@+id/menuByEskaDESC"
+        android:title="sort by eska 321">
+    </item>
+
+</menu>

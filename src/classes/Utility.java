@@ -13,6 +13,11 @@ public class Utility {
 
 	public static final int MENU_DELETE_ITEM = 1;
 	public static final int MENU_EDIT_ITEM = 2;
+	public static final String ASC = "ASC";
+	public static final String DESC = "DESC";
+	public static final String SURNAME = "surname";
+	public static final String NAME = "name";
+	public static final String ESKA = "eska";
 
 	public static String GetColumnValue(Cursor cur, String ColumnName) {
 		try {

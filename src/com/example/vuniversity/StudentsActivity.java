@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,7 @@ import classes.Utility;
 public class StudentsActivity extends MainActivity {
 	private ArrayList<Student> listItems;
 	private ListView listView;
-	private String groupId;
+	private String groupId, ORDER_BY, ASC_DESC;
 	private EditText searchField;
 	private ArrayAdapter<Student> adapter;
 
@@ -39,7 +40,7 @@ public class StudentsActivity extends MainActivity {
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 
-		listItems = mDbHelper.getAllStudents(groupId);
+		listItems = mDbHelper.getAllStudents(groupId, ORDER_BY, ASC_DESC);
 		adapter = new ArrayAdapter<Student>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
@@ -152,6 +153,44 @@ public class StudentsActivity extends MainActivity {
 		if (v.getId() == R.id.list) {
 			MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.student_put_mark_edit, menu);
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.students, menu);
+
+		return true;// return true so to menu pop up is opens
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menuBySurnameASC:
+			ORDER_BY = Utility.SURNAME;
+			ASC_DESC = Utility.ASC;
+			loadList();
+			return true;
+		case R.id.menuBySurnameDESC:
+			ORDER_BY = Utility.SURNAME;
+			ASC_DESC = Utility.DESC;
+			loadList();
+			return true;
+		case R.id.menuByEskaASC:
+			ORDER_BY = Utility.ESKA;
+			ASC_DESC = Utility.ASC;
+			loadList();
+			return true;
+		case R.id.menuByEskaDESC:
+			ORDER_BY = Utility.ESKA;
+			ASC_DESC = Utility.DESC;
+			loadList();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
