@@ -53,7 +53,7 @@ public class AverageStudentMarkOfSubject {
 
 	@Override
 	public String toString() {
-		return getAverageMark() + " " + getSurname() + " " + getName() + "\n"
+		return getAverageMark() + "\n" + getSurname() + " " + getName() + " "
 				+ getGroupName();
 	}
 

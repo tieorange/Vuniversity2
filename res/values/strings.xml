@@ -20,5 +20,7 @@
     <string name="putMarkForStudent">Put mark</string>
     <string name="showDetailsStudent">Show details of student</string>
     <string name="showDetailsTeacher">Show details of teacher</string>
+    <string name="marksActivity">Marks</string>
+    <string name="averageMarksActivity">Average Marks raiting</string>
 
 </resources>

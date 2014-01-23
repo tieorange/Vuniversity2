@@ -330,11 +330,18 @@ public class TestAdapter {
 		}
 	}
 
-	public ArrayList<Subject> getAllSubjectsWithMarks() {
+	public ArrayList<Subject> getAllSubjectsWithMarks(String ORDER_BY,
+			String ASC_DESC) {
 		try {
-			String sql = "SELECT s.id, s.name\n" + "FROM subject s\n"
-					+ "INNER JOIN mark m ON s.id = m.subjectId\n"
-					+ "GROUP BY s.id";
+			if (ORDER_BY == null)
+				ORDER_BY = "id";
+			if (ASC_DESC == null)
+				ASC_DESC = "ASC";
+
+			String sql = "SELECT s.id, s.name " + "FROM subject s "
+					+ "INNER JOIN mark m ON s.id = m.subjectId "
+					+ "GROUP BY s.id" + " ORDER BY " + "s." + ORDER_BY + " "
+					+ ASC_DESC;
 			ArrayList<Subject> subjectList = new ArrayList<Subject>();
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur != null) {
@@ -751,14 +758,20 @@ public class TestAdapter {
 
 	// *******AVERAGE MARKS ***********
 	public ArrayList<AverageStudentMarkOfSubject> getAverageMarksOfStudents(
-			String subjectId) {
+			String subjectId, String ORDER_BY, String ASC_DESC) {
 		try {
+			if (ORDER_BY == null)
+				ORDER_BY = Utility.AVERAGE_MARK;
+			if (ASC_DESC == null)
+				ASC_DESC = Utility.DESC;
+
 			String sql = "SELECT avg(m.mark), s.name, s.surname, g.name"
 					+ " FROM mark m"
 					+ " INNER JOIN student s ON s.id = m.studentId"
 					+ " INNER JOIN \"group\" g ON g.id = s.groupId"
 					+ " WHERE m.subjectId = " + subjectId
-					+ " GROUP BY studentId" + " ORDER BY avg(m.mark) DESC";
+					+ " GROUP BY studentId" + " ORDER BY " + ORDER_BY + " "
+					+ ASC_DESC;
 			ArrayList<AverageStudentMarkOfSubject> list = new ArrayList<AverageStudentMarkOfSubject>();
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur != null) {

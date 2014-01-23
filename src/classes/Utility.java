@@ -19,6 +19,8 @@ public class Utility {
 	public static final String NAME = "name";
 	public static final String ESKA = "eska";
 	public static final String ID = "id";
+	public static final String AVERAGE_MARK = "avg(m.mark)";
+	
 
 	public static String GetColumnValue(Cursor cur, String ColumnName) {
 		try {

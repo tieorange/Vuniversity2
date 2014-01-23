@@ -33,5 +33,12 @@
         android:layout_gravity="center"
         android:onClick="onClickButtons"
         android:text="Subjects" />
+    <Button
+        android:id="@+id/buttonMarks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onClickButtons"
+        android:text="Marks" />
 
 </LinearLayout>
