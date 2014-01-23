@@ -27,6 +27,7 @@ public class StudentsActivity extends MainActivity {
 	private ListView listView;
 	private EditText searchField;
 	private String groupId;
+	private ArrayAdapter<Student> adapter;
 
 	private Adapter getListAdapter() {
 		return new ArrayAdapter<Student>(this,
@@ -40,7 +41,7 @@ public class StudentsActivity extends MainActivity {
 		mDbHelper.open();
 
 		listItems = mDbHelper.getAllStudents(groupId);
-		ArrayAdapter<Student> adapter = new ArrayAdapter<Student>(this,
+		adapter = new ArrayAdapter<Student>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
 
@@ -103,9 +104,8 @@ public class StudentsActivity extends MainActivity {
 		}
 
 		setContentView(R.layout.list);
+		listView = (ListView) findViewById(R.id.list);
 		searchField = (EditText) findViewById(R.id.search_field);
-		searchField.addTextChangedListener(filterTextWatcher);
-		listView = (ListView) findViewById(R.id.listView);
 
 		registerForContextMenu(listView);
 		loadList();
@@ -125,28 +125,24 @@ public class StudentsActivity extends MainActivity {
 
 			}
 		});
-	}
 
-	private TextWatcher filterTextWatcher = new TextWatcher() {
+		searchField.addTextChangedListener(new TextWatcher() {
 
-		public void afterTextChanged(Editable s) {
-		}
+			@Override
+			public void onTextChanged(CharSequence cs, int arg1, int arg2,
+					int arg3) {
+				adapter.getFilter().filter(cs);
+			}
 
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-		}
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+			}
 
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-			((Filterable) getListAdapter()).getFilter().filter(s);
-		}
-
-	};
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		searchField.removeTextChangedListener(filterTextWatcher);
+			@Override
+			public void afterTextChanged(Editable arg0) {
+			}
+		});
 	}
 
 	@Override
@@ -155,7 +151,7 @@ public class StudentsActivity extends MainActivity {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 		String header = listItems.get(info.position).toString();
 		menu.setHeaderTitle(header);
-		if (v.getId() == R.id.listView) {
+		if (v.getId() == R.id.list) {
 			MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.student_put_mark_edit, menu);
 		}

@@ -78,7 +78,7 @@ public class GroupsActivity extends MainActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
-		listView = (ListView) findViewById(R.id.listView);
+		listView = (ListView) findViewById(R.id.list);
 		registerForContextMenu(listView);
 		loadList();
 
@@ -104,7 +104,7 @@ public class GroupsActivity extends MainActivity {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 		String header = listItems.get(info.position).toString();
 		menu.setHeaderTitle(header);
-		if (v.getId() == R.id.listView) {
+		if (v.getId() == R.id.list) {
 			// menu.add(Menu.NONE, 1, 1, "Remove him from this list");
 			MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.context_menu, menu);
