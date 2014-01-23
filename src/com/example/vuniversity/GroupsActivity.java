@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ public class GroupsActivity extends MainActivity {
 	private ListView listView;
 	private ArrayAdapter<Group> adapter;
 	private EditText searchField;
+	private String ORDER_BY, ASC_DESC;
 
 	private Adapter getListAdapter() {
 		return new ArrayAdapter<Group>(this,
@@ -37,7 +39,7 @@ public class GroupsActivity extends MainActivity {
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 
-		listItems = mDbHelper.getAllGroups();
+		listItems = mDbHelper.getAllGroups(ORDER_BY, ASC_DESC);
 		adapter = new ArrayAdapter<Group>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
@@ -134,6 +136,32 @@ public class GroupsActivity extends MainActivity {
 			// super.onCreateContextMenu(menu, v, menuInfo);
 		}
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.groups_subjects, menu);
+		return true;// return true so to menu pop up is opens
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menuByNameASC:
+			ORDER_BY = Utility.NAME;
+			ASC_DESC = Utility.ASC;
+			loadList();
+			return true;
+		case R.id.menuByNameDESC:
+			ORDER_BY = Utility.NAME;
+			ASC_DESC = Utility.DESC;
+			loadList();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override

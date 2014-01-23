@@ -34,7 +34,7 @@ public class TestAdapter {
 	}
 
 	public TestAdapter open() throws SQLException {
-		
+
 		try {
 			mDbHelper.close();
 			mDbHelper.openDataBase();
@@ -198,8 +198,17 @@ public class TestAdapter {
 
 	// ******** GROUPS *********
 	public ArrayList<Group> getAllGroups() {
+		return getAllGroups(Utility.ID, Utility.ASC);
+	}
+
+	public ArrayList<Group> getAllGroups(String ORDER_BY, String ASC_DESC) {
 		try {
-			String sql = "SELECT * FROM \"group\"";
+			if (ORDER_BY == null)
+				ORDER_BY = "id";
+			if (ASC_DESC == null)
+				ASC_DESC = "ASC";
+			String sql = "SELECT * FROM \"group\"" + " ORDER BY " + ORDER_BY
+					+ " " + ASC_DESC;
 			ArrayList<Group> groupList = new ArrayList<Group>();
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur != null) {

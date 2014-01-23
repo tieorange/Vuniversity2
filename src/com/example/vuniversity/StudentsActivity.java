@@ -160,9 +160,7 @@ public class StudentsActivity extends MainActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.students, menu);
-
 		return true;// return true so to menu pop up is opens
-
 	}
 
 	@Override
