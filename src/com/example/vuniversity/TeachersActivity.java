@@ -45,7 +45,7 @@ public class TeachersActivity extends MainActivity {
 	public void onClickAddNew(View view) {
 		Intent intent = new Intent(view.getContext(), AddTeacherActivity.class);
 		startActivity(intent);
-	}	
+	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
@@ -88,9 +88,11 @@ public class TeachersActivity extends MainActivity {
 					int position, long arg) {
 				Teacher selectedItem = (Teacher) adapter.getAdapter().getItem(
 						position);
-				Utility.ShowMessageBox(view.getContext(),
-						selectedItem.getName() + " is clicked");
-				// Intent intent = new Intent(view.getContext().)
+
+				Intent intent = new Intent(view.getContext(),
+						ShowDetailsTeacher.class);
+				intent.putExtra("teacherId", selectedItem.getId());
+				startActivity(intent);
 			}
 		});
 	}

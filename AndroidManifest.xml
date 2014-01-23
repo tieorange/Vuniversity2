@@ -93,6 +93,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/showDetailsStudent" >
         </activity>
+        <activity
+            android:name="ShowDetailsTeacher"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/showDetailsTeacher" >
+        </activity>
     </application>
 
 </manifest>

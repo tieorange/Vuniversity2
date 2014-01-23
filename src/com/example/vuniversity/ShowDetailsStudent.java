@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +19,6 @@ import android.widget.Spinner;
 import classes.Group;
 import classes.Mark;
 import classes.Student;
-import classes.TeacherGroup;
 import classes.TestAdapter;
 import classes.Utility;
 
@@ -32,18 +31,9 @@ public class ShowDetailsStudent extends MainActivity {
 	ArrayList<Mark> listMarks;
 	ListView listViewStudentMarks;
 
-	public void loadSpinnerData() {
-		TestAdapter mDbHelper = new TestAdapter(this);
-		mDbHelper.createDatabase();
-		mDbHelper.open();
-
-		listItems = mDbHelper.getAllGroups();
-		ArrayAdapter<Group> adapter = new ArrayAdapter<Group>(this,
-				android.R.layout.simple_spinner_item, listItems);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-		// attaching data adapter to spinner
-		spinnerGroups.setAdapter(adapter);
+	private Adapter getListAdapter() {
+		return new ArrayAdapter<Mark>(this,
+				android.R.layout.simple_list_item_1, listMarks);
 	}
 
 	public void loadList() {
@@ -59,6 +49,38 @@ public class ShowDetailsStudent extends MainActivity {
 
 		Utility.ShowMessageBox(this, "Students loaded");
 		mDbHelper.close();
+	}
+
+	public void loadSpinnerData() {
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+
+		listItems = mDbHelper.getAllGroups();
+		ArrayAdapter<Group> adapter = new ArrayAdapter<Group>(this,
+				android.R.layout.simple_spinner_item, listItems);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		// attaching data adapter to spinner
+		spinnerGroups.setAdapter(adapter);
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+				.getMenuInfo();
+		Mark Item = (Mark) getListAdapter().getItem(info.position);
+		switch (item.getItemId()) {
+		case R.id.contextMenuDeleteItem: {
+			TestAdapter mDbHelper = new TestAdapter(this);
+			mDbHelper.createDatabase();
+			mDbHelper.open();
+			mDbHelper.RemoveMarkById(Item.getId());
+			mDbHelper.close();
+			loadList();
+			break;
+		}
+		}
+		return true;
 	}
 
 	@Override
@@ -133,29 +155,6 @@ public class ShowDetailsStudent extends MainActivity {
 			MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.remove_only_context_menu, menu);
 		}
-	}
-
-	private Adapter getListAdapter() {
-		return new ArrayAdapter<Mark>(this,
-				android.R.layout.simple_list_item_1, listMarks);
-	}
-
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
-				.getMenuInfo();
-		Mark Item = (Mark) getListAdapter().getItem(info.position);
-		switch (item.getItemId()) {
-		case R.id.contextMenuDeleteItem: {
-			TestAdapter mDbHelper = new TestAdapter(this);
-			mDbHelper.createDatabase();
-			mDbHelper.open();
-			mDbHelper.RemoveMarkById(Item.getId());
-			mDbHelper.close();
-			loadList();
-			break;
-		}
-		}
-		return true;
 	}
 
 	@Override
