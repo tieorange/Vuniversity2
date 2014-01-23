@@ -330,6 +330,32 @@ public class TestAdapter {
 		}
 	}
 
+	public ArrayList<Subject> getAllSubjectsWithMarks() {
+		try {
+			String sql = "SELECT s.id, s.name\n" + "FROM subject s\n"
+					+ "INNER JOIN mark m ON s.id = m.subjectId\n"
+					+ "GROUP BY s.id";
+			ArrayList<Subject> subjectList = new ArrayList<Subject>();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					do {
+						Subject subject = new Subject();
+						subject.setId(mCur.getString(0));
+						subject.setName(mCur.getString(1));
+
+						// Adding contact to list
+						subjectList.add(subject);
+					} while (mCur.moveToNext());
+				}
+			}
+			return subjectList;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
+	}
+
 	public ArrayList<Subject> getSubjectsOfGroup(String groupId) {
 		try {
 			String sql = "SELECT s.id, s.name" + " FROM teacher_groups tg"
@@ -721,5 +747,37 @@ public class TestAdapter {
 
 	public void RemoveMarkById(String id) {
 		mDb.delete("mark", "id=?", new String[] { (id) });
+	}
+
+	// *******AVERAGE MARKS ***********
+	public ArrayList<AverageStudentMarkOfSubject> getAverageMarksOfStudents(
+			String subjectId) {
+		try {
+			String sql = "SELECT avg(m.mark), s.name, s.surname, g.name"
+					+ " FROM mark m"
+					+ " INNER JOIN student s ON s.id = m.studentId"
+					+ " INNER JOIN \"group\" g ON g.id = s.groupId"
+					+ " WHERE m.subjectId = " + subjectId
+					+ " GROUP BY studentId" + " ORDER BY avg(m.mark) DESC";
+			ArrayList<AverageStudentMarkOfSubject> list = new ArrayList<AverageStudentMarkOfSubject>();
+			Cursor mCur = mDb.rawQuery(sql, null);
+			if (mCur != null) {
+				if (mCur.moveToFirst()) {
+					do {
+						AverageStudentMarkOfSubject item = new AverageStudentMarkOfSubject();
+						item.setAverageMark(mCur.getString(0));
+						item.setName(mCur.getString(1));
+						item.setSurname(mCur.getString(2));
+						item.setGroupName(mCur.getString(3));
+						// Adding contact to list
+						list.add(item);
+					} while (mCur.moveToNext());
+				}
+			}
+			return list;
+		} catch (SQLException mSQLException) {
+			Log.e(TAG, "getList >>" + mSQLException.toString());
+			throw mSQLException;
+		}
 	}
 }
