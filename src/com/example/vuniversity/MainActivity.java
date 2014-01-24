@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class MainActivity extends Activity {
 
@@ -49,13 +50,6 @@ public class MainActivity extends Activity {
 			editor.putInt("lastStudentId", 0);
 			editor.commit();
 		}
-
-		// get
-		SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-		int restoredText = prefs.getInt("lastStudentId", -1);
-
-		Utility.ShowMessageBox(view.getContext(),
-				Integer.toString(restoredText));
 
 	}
 

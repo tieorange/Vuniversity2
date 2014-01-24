@@ -16,6 +16,7 @@ import classes.Teacher;
 import classes.TeacherGroup;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class ShowDetailsTeacher extends MainActivity {
 	Button buttonEdit, buttonAddSubject;
@@ -35,7 +36,6 @@ public class ShowDetailsTeacher extends MainActivity {
 				this, android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
 
-		Utility.ShowMessageBox(this, "loaded");
 		mDbHelper.close();
 	}
 

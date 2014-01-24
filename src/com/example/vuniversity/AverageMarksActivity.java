@@ -20,6 +20,7 @@ import android.widget.ListView;
 import classes.AverageStudentMarkOfSubject;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class AverageMarksActivity extends MainActivity {
 	Button buttonAddNew;
@@ -34,12 +35,12 @@ public class AverageMarksActivity extends MainActivity {
 		mDbHelper.createDatabase();
 		mDbHelper.open();
 
-		listItems = mDbHelper.getAverageMarksOfStudents(subjectId, ORDER_BY, ASC_DESC);
-				adapter = new ArrayAdapter<AverageStudentMarkOfSubject>(this,
+		listItems = mDbHelper.getAverageMarksOfStudents(subjectId, ORDER_BY,
+				ASC_DESC);
+		adapter = new ArrayAdapter<AverageStudentMarkOfSubject>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
 
-		Utility.ShowMessageBox(this, "Subjects loaded");
 		mDbHelper.close();
 	}
 

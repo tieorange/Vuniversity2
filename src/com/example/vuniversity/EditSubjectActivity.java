@@ -7,6 +7,7 @@ import android.widget.EditText;
 import classes.Subject;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class EditSubjectActivity extends MainActivity {
 	Button buttonEdit;

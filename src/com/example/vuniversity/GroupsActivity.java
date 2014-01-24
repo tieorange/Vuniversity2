@@ -21,6 +21,7 @@ import android.widget.ListView;
 import classes.Group;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class GroupsActivity extends MainActivity {
 	private ArrayList<Group> listItems;
@@ -43,8 +44,6 @@ public class GroupsActivity extends MainActivity {
 		adapter = new ArrayAdapter<Group>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
-
-		Utility.ShowMessageBox(this, "Groups loaded");
 		mDbHelper.close();
 	}
 

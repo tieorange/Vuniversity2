@@ -13,6 +13,7 @@ import classes.Student;
 import classes.Subject;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class PutMarkForStudent extends MainActivity implements
 		OnItemSelectedListener {
@@ -101,7 +102,6 @@ public class PutMarkForStudent extends MainActivity implements
 		case R.id.spinnerSubjectOfMark: {
 			Subject item = (Subject) parent.getItemAtPosition(position);
 			selectedSubjectId = item.getId();
-			Utility.ShowMessageBox(parent.getContext(), selectedSubjectId);
 			break;
 		}
 		case R.id.spinnerMarkOfStudent: {

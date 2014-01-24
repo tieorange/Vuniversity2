@@ -21,6 +21,7 @@ import classes.Mark;
 import classes.Student;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class ShowDetailsStudent extends MainActivity {
 	Button buttonEdit;
@@ -46,8 +47,6 @@ public class ShowDetailsStudent extends MainActivity {
 		ArrayAdapter<Mark> adapter = new ArrayAdapter<Mark>(this,
 				android.R.layout.simple_list_item_1, listMarks);
 		listViewStudentMarks.setAdapter(adapter);
-
-		Utility.ShowMessageBox(this, "Students loaded");
 		mDbHelper.close();
 	}
 

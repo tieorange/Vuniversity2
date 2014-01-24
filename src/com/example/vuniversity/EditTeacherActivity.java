@@ -20,6 +20,7 @@ import classes.Teacher;
 import classes.TeacherGroup;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class EditTeacherActivity extends MainActivity {
 	Button buttonEdit;
@@ -43,8 +44,6 @@ public class EditTeacherActivity extends MainActivity {
 		ArrayAdapter<TeacherGroup> adapter = new ArrayAdapter<TeacherGroup>(
 				this, android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
-
-		Utility.ShowMessageBox(this, "loaded");
 		mDbHelper.close();
 	}
 
@@ -141,9 +140,6 @@ public class EditTeacherActivity extends MainActivity {
 					int position, long arg) {
 				TeacherGroup selectedItem = (TeacherGroup) adapter.getAdapter()
 						.getItem(position);
-				Utility.ShowMessageBox(view.getContext(),
-						selectedItem.getSubjectName() + " is clicked");
-				// Intent intent = new Intent(view.getContext().)
 			}
 		});
 	}

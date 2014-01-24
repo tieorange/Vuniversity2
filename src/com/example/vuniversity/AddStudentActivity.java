@@ -17,6 +17,7 @@ import classes.Group;
 import classes.Student;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class AddStudentActivity extends MainActivity implements
 		OnItemSelectedListener {

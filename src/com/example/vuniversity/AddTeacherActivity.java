@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import classes.Teacher;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class AddTeacherActivity extends MainActivity {
 	Button buttonSubmitNew;

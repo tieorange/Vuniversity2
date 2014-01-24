@@ -21,6 +21,7 @@ import android.widget.ListView;
 import classes.Subject;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class MarksActivity extends MainActivity {
 	Button buttonAddNew;
@@ -40,7 +41,6 @@ public class MarksActivity extends MainActivity {
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
 
-		Utility.ShowMessageBox(this, "Subjects loaded");
 		mDbHelper.close();
 	}
 

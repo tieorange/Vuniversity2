@@ -2,23 +2,23 @@ package classes;
 
 public class Student {
 
-	public Student(String eska) {
-		super();
-		Eska = eska;
-	}
-
 	private String Id;
+
 	private String Name;
 	private String Surname;
 	private String Eska;
 	private String GroupId;
-
 	public Student() {
 		Id = "-1";
 		Name = null;
 		Surname = null;
 		Eska = null;
 		GroupId = null;
+	}
+
+	public Student(String eska) {
+		super();
+		Eska = eska;
 	}
 
 	public Student(String name, String surname) {

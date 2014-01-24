@@ -20,6 +20,7 @@ import android.widget.ListView;
 import classes.Subject;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class SubjectsActivity extends MainActivity {
 	private ArrayList<Subject> listItems;
@@ -43,7 +44,6 @@ public class SubjectsActivity extends MainActivity {
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
 
-		Utility.ShowMessageBox(this, "Subjects loaded");
 		mDbHelper.close();
 	}
 

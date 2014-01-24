@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vuniversity"
+    package="com.tieorange.vuniversity"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -23,88 +23,88 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="GroupsActivity"
+            android:name="com.example.vuniversity.GroupsActivity"
             android:label="@string/groups" >
         </activity>
         <activity
-            android:name="AddGroupActivity"
+            android:name="com.example.vuniversity.AddGroupActivity"
             android:label="@string/addNewGroup"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="StudentsActivity"
+            android:name="com.example.vuniversity.StudentsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/students" >
         </activity>
         <activity
-            android:name="AddStudentActivity"
+            android:name="com.example.vuniversity.AddStudentActivity"
             android:label="@string/addNewStudent"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="EditStudentActivity"
+            android:name="com.example.vuniversity.EditStudentActivity"
             android:label="@string/editStudent"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="EditGroupActivity"
+            android:name="com.example.vuniversity.EditGroupActivity"
             android:label="@string/edtiGroup"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="SubjectsActivity"
+            android:name="com.example.vuniversity.SubjectsActivity"
             android:label="@string/subjects" >
         </activity>
         <activity
-            android:name="AddSubjectActivity"
+            android:name="com.example.vuniversity.AddSubjectActivity"
             android:label="@string/addNewSubject"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="EditSubjectActivity"
+            android:name="com.example.vuniversity.EditSubjectActivity"
             android:label="@string/edtiSubject"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="TeachersActivity"
+            android:name="com.example.vuniversity.TeachersActivity"
             android:label="@string/teachers" >
         </activity>
         <activity
-            android:name="EditTeacherActivity"
+            android:name="com.example.vuniversity.EditTeacherActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/editTeachers" >
         </activity>
         <activity
-            android:name="AddTeacherActivity"
+            android:name="com.example.vuniversity.AddTeacherActivity"
             android:label="@string/addTeachers" >
         </activity>
         <activity
-            android:name="AddSubjectForTeacher"
+            android:name="com.example.vuniversity.AddSubjectForTeacher"
             android:label="@string/addSubjectForTeacher"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="PutMarkForStudent"
+            android:name="com.example.vuniversity.PutMarkForStudent"
             android:label="@string/putMarkForStudent"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="ShowDetailsStudent"
+            android:name="com.example.vuniversity.ShowDetailsStudent"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/showDetailsStudent" >
         </activity>
         <activity
-            android:name="ShowDetailsTeacher"
+            android:name="com.example.vuniversity.ShowDetailsTeacher"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/showDetailsTeacher" >
         </activity>
         <activity
-            android:name="MarksActivity"
+            android:name="com.example.vuniversity.MarksActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/marksActivity" >
         </activity>
         <activity
-            android:name="AverageMarksActivity"
+            android:name="com.example.vuniversity.AverageMarksActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/averageMarksActivity" >
         </activity>

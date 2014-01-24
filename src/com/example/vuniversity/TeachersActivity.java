@@ -21,6 +21,7 @@ import android.widget.ListView;
 import classes.Teacher;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class TeachersActivity extends MainActivity {
 	private ArrayList<Teacher> listItems;
@@ -44,8 +45,6 @@ public class TeachersActivity extends MainActivity {
 		adapter = new ArrayAdapter<Teacher>(this,
 				android.R.layout.simple_list_item_1, listItems);
 		listView.setAdapter(adapter);
-
-		Utility.ShowMessageBox(this, "loaded");
 		mDbHelper.close();
 	}
 

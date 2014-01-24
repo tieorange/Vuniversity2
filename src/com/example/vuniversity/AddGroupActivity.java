@@ -7,6 +7,7 @@ import android.widget.EditText;
 import classes.Group;
 import classes.TestAdapter;
 import classes.Utility;
+import com.tieorange.vuniversity.R;
 
 public class AddGroupActivity extends MainActivity {
 
