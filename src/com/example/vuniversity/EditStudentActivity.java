@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -92,6 +93,7 @@ public class EditStudentActivity extends MainActivity implements
 			studentId = (String) savedInstanceState
 					.getSerializable("studentId");
 		}
+		getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
 		buttonEdit = (Button) findViewById(R.id.buttonSubmitNewStudent);
 		editTextName = (EditText) findViewById(R.id.editTextStudentName);
