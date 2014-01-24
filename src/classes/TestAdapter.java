@@ -116,7 +116,7 @@ public class TestAdapter {
 
 	public ArrayList<Student> getAllStudents() {
 		try {
-			String sql = "SELECT * FROM student";
+			String sql = "SELECT * FROM student ORDER BY Eska ASC";
 			ArrayList<Student> studentList = new ArrayList<Student>();
 			Cursor mCur = mDb.rawQuery(sql, null);
 			if (mCur != null) {
@@ -144,6 +144,19 @@ public class TestAdapter {
 	public ArrayList<Student> getAllStudents(String id) {
 		return getAllStudents(id, "id", "ASC");
 
+	}
+
+	public int IsStudentEskeExists(int lastStudentId) {
+		ArrayList<Student> students = getAllStudents();
+		for (Student student : students) {
+			if (student.getEska().equals(Integer.toString(lastStudentId))) {
+				do {
+					lastStudentId++;
+				} while (student.getEska().equals(
+						Integer.toString(lastStudentId)));
+			}
+		}
+		return lastStudentId;
 	}
 
 	public ArrayList<Student> getAllStudents(String id, String ORDER_BY,
@@ -793,4 +806,5 @@ public class TestAdapter {
 			throw mSQLException;
 		}
 	}
+
 }

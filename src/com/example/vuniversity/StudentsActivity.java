@@ -3,7 +3,9 @@ package com.example.vuniversity;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
@@ -69,6 +71,12 @@ public class StudentsActivity extends MainActivity {
 			mDbHelper.RemoveStudentById(Item.getId());
 			mDbHelper.close();
 			loadList();
+
+			SharedPreferences preferences = PreferenceManager
+					.getDefaultSharedPreferences(getApplicationContext());
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putInt("lastStudentId", 0);
+			editor.commit();
 			break;
 		}
 		case R.id.contextMenuEditItem: {
