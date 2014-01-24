@@ -2,7 +2,9 @@ package com.example.vuniversity;
 
 import java.util.ArrayList;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -23,6 +25,8 @@ public class AddStudentActivity extends MainActivity implements
 	Spinner spinnerGroups;
 	String groupId;
 	ArrayList<Group> listItems;
+	int lastStudentId;
+	SharedPreferences preferences;
 
 	private Adapter getSpinnerAdapter() {
 		return new ArrayAdapter<Group>(this,
@@ -66,7 +70,9 @@ public class AddStudentActivity extends MainActivity implements
 		}
 
 		if (mDbHelper.AddStudent(name, surname, eska, groupId)) {
-			Utility.ShowMessageBox(this, "added");
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putInt("lastStudentId", lastStudentId);
+			editor.commit();
 			finish();
 		} else {
 			Utility.ShowMessageBox(this, "OOPS try again!");
@@ -99,6 +105,12 @@ public class AddStudentActivity extends MainActivity implements
 		loadSpinnerData();
 		selectSpinnerItemByValue(spinnerGroups, groupId);
 
+		preferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+		lastStudentId = preferences.getInt("lastStudentId", -1);
+		getLastStudentEska();
+		editTextEska.setText(Integer.toString(lastStudentId));
+
 	}
 
 	@Override
@@ -108,6 +120,13 @@ public class AddStudentActivity extends MainActivity implements
 		Group item = (Group) parent.getItemAtPosition(position);
 		groupId = item.getId();
 
+	}
+
+	public void getLastStudentEska() {
+		TestAdapter mDbHelper = new TestAdapter(this);
+		mDbHelper.createDatabase();
+		mDbHelper.open();
+		lastStudentId = mDbHelper.IsStudentEskeExists(lastStudentId);
 	}
 
 	@Override
