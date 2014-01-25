@@ -138,8 +138,8 @@ public class EditTeacherActivity extends MainActivity {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long arg) {
-				TeacherGroup selectedItem = (TeacherGroup) adapter.getAdapter()
-						.getItem(position);
+//				TeacherGroup selectedItem = (TeacherGroup) adapter.getAdapter()
+//						.getItem(position);
 			}
 		});
 	}

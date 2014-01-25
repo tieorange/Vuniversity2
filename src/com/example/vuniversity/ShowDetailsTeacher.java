@@ -15,7 +15,7 @@ import android.widget.ListView;
 import classes.Teacher;
 import classes.TeacherGroup;
 import classes.TestAdapter;
-import classes.Utility;
+
 import com.tieorange.vuniversity.R;
 
 public class ShowDetailsTeacher extends MainActivity {

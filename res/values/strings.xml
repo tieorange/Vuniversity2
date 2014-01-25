@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Vuniversity</string>
+    <string name="app_name">VUniversity</string>
     <string name="action_settings">Settings</string>
     <string name="groups">Groups</string>
     <string name="addNewGroup">Add new group</string>
@@ -20,6 +20,6 @@
     <string name="showDetailsStudent">Show details of student</string>
     <string name="showDetailsTeacher">Show details of teacher</string>
     <string name="marksActivity">Marks</string>
-    <string name="averageMarksActivity">Average Marks raiting</string>
+    <string name="averageMarksActivity">Average Marks rating</string>
 
 </resources>
