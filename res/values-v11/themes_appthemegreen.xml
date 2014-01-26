@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="AppThemeGreen" parent="android:Theme.Holo">
+
+    <item name="android:editTextBackground">@drawable/appthemegreen_edit_text_holo_dark</item>
+
+    <item name="android:textColorHighlight">#99669900</item>
+    <item name="android:textSelectHandleLeft">@drawable/appthemegreen_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/appthemegreen_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/appthemegreen_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewAppThemeGreen</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/appthemegreen_btn_check_holo_dark</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/appthemegreen_btn_radio_holo_dark</item>
+
+    <item name="android:buttonStyle">@style/ButtonAppThemeGreen</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonAppThemeGreen</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerAppThemeGreen</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppThemeGreen</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarAppThemeGreen</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarAppThemeGreen</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigAppThemeGreen</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppThemeGreen</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleAppThemeGreen</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/appthemegreen_list_selector_holo_dark</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/appthemegreen_activated_background_holo_dark</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/appthemegreen_fastscroll_thumb_holo</item>
+
+  </style>
+
+</resources>

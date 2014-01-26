@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="AppThemeGreen" parent="android:Theme.Black">
+
+    <item name="android:editTextStyle">@style/EditTextAppThemeGreen</item>
+
+    <item name="android:textColorHighlight">#99669900</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewAppThemeGreen</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxAppThemeGreen</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonAppThemeGreen</item>
+
+    <item name="android:buttonStyle">@style/ButtonAppThemeGreen</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonAppThemeGreen</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerAppThemeGreen</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppThemeGreen</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppThemeGreen</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarAppThemeGreen</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarAppThemeGreen</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigAppThemeGreen</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppThemeGreen</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleAppThemeGreen</item>
+
+    <item name="android:listViewStyle">@style/ListViewAppThemeGreen</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewAppThemeGreen.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemAppThemeGreen</item>
+
+  </style>
+
+</resources>
