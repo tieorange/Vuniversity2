@@ -6,6 +6,9 @@ That
 Android application helps teachers to organize the groups of students in
 university, put subjects and teachers, get the ranking list of marks.
 
+### Google Play link:
+https://play.google.com/store/apps/details?id=com.tieorange.vuniversity&hl=pl
+
 ### Motivation
 
 To help
